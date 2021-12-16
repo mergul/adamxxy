@@ -1,0 +1,103 @@
+article.article-top{
+    li{
+        margin-bottom: .5rem;
+    }
+    a{
+      position: relative;
+      border: 1px solid khaki;
+      background-color: #f6f6f68c;
+  //    padding: 0.5rem;
+      text-decoration: none;
+      display: grid;
+      gap: .25rem;
+      grid-template-columns: repeat(auto-fit, minmax(158px, 1fr));
+      section.fi{
+        margin: auto;
+      }
+      section.prf{
+       // padding-left: .5rem;
+        grid-column: auto / span 2;
+      }
+    }
+  }
+  .figure {
+    position: relative;
+    border: thin #c0c0c0 solid;
+    padding: 4px;
+    margin: auto;
+ //   display: inline-block;
+    img {
+      width: 100%;
+      object-fit: cover;
+      height: calc(154*(100vw/1536));
+    }
+    figcaption{
+        position: absolute;
+        font: italic 1.1rem sans-serif;
+        text-align: center;
+        width: calc(100% - 8px);
+        height: 25%;
+      background: rgba(0, 9, 0, 0.4);
+      color: #fff;
+      bottom: 5px;
+    }
+  }
+  .article-title{
+    margin: 0 auto;
+    padding: 10px;
+    font-size: calc(6px + 20*(100vw / 1600)) !important;
+  }
+  .article-prf{
+    margin: 0;
+    padding: 0 10px 0 10px;
+    font-size: calc(6px + 20*(100vw / 1600)) !important;
+  }
+  @media screen and (max-width: 800px) and (min-width: 601px){
+    .figure{
+      img {
+        height: calc(296*(100vw/1536)) !important;
+        width: auto;
+      }
+    }
+    a{ 
+      grid-template-columns: 100% !important;
+    }
+    .article-title, .article-prf{
+      font-size: calc(6px + 30*(100vw / 1600)) !important;
+    }
+    section.prf{
+      padding-left: .5rem;
+    }
+  }
+
+  @media screen and (max-width: 600px) and (min-width: 416px){
+    article.article-top{
+      a{
+        grid-template-columns: repeat(auto-fit, minmax(117px, 1fr)) !important;
+        section.fi{
+          figure img{
+            height: calc(228*(100vw/1536)) !important;
+          }
+        }
+      }
+    }
+  }
+  @media screen and (max-width: 415px){
+    a{
+      grid-template-columns: 100% !important;
+      img{
+        height: calc(380*(100vw/1536)) !important;
+        width: auto;
+      }
+    }
+    .article-title, .article-prf{
+      font-size: calc(6px + 40*(100vw / 1600)) !important;
+    }
+  }
+  // @use "sass:math" as math;
+// @function get-vw($target) { 
+//   $vw-context: (1000*.01) * 1px;
+//   @return math.div($target, $vw-context) * 1vw;
+// }
+// $num: math.round(math.div(100vw, get-vw(1503px)));
+// @debug "divider offset: #{$num}";

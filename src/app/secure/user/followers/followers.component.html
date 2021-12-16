@@ -1,0 +1,12 @@
+<ng-container *ngIf="(route.data|push) as data">
+<ng-container [ngSwitch]="data['link']">
+<app-profile-list *ngSwitchCase="0" [mtype]="1" class="users"></app-profile-list>
+<app-profile-list *ngSwitchCase="1" [mtype]="2" class="users"></app-profile-list>
+<div *ngSwitchCase="2" class="tags">
+    <div class="tag" *ngFor="let tag of (userService._meState|push)?.tags">
+    <label>#{{tag}}</label>
+    <button class="butto ripple button-outline">Takibi Kes</button>
+</div>
+</div>
+</ng-container>
+</ng-container>

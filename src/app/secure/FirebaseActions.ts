@@ -1,0 +1,1 @@
+export {confirmPasswordReset, createUserWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword, verifyPasswordResetCode, signOut} from '@angular/fire/auth';

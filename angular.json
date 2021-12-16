@@ -1,5 +1,8 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "cli": {
+    "analytics": false
+  },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
@@ -27,8 +30,8 @@
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/robots.txt"
             ],
             "styles": [
               "src/styles.scss"
@@ -45,8 +48,8 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "4kb",
+                  "maximumError": "8kb"
                 }
               ],
               "fileReplacements": [
@@ -77,6 +80,12 @@
             "development": {
               "browserTarget": "adamxxy:build:development"
             }
+          },
+          "options": {
+            "browserTarget": "adamxxy:build:development",
+            "port": 4200,
+            "hmr": false,
+            "liveReload": false
           },
           "defaultConfiguration": "development"
         },

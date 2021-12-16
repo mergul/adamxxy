@@ -1,0 +1,50 @@
+section.top{
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1rem;
+    place-items: stretch;
+    padding-top: 10px;
+    figure.figure{
+      position: relative;
+      height: calc(250*(100vw / 1536));
+      margin-left: 1rem;
+      box-shadow: 0 4px 17px #9f9f9f; 
+      .image-bg{
+        height: calc(225*(100vw / 1536));
+        width: 100%;
+        object-fit: cover;
+      }
+      .image-profile{
+        position: absolute;
+        height: calc(192*(100vw / 1536));
+        width: calc(192*(100vw / 1536));
+        object-fit: contain;
+        border-radius: 50%;
+        bottom: 0;
+        left: 5%;
+      }    
+    } 
+    .profile-info{
+      display: grid;
+      grid-template-rows: 1fr 2fr;
+      grid-gap: 1rem;
+      height: calc(250*(100vw / 1536));
+      .h1{
+        font-size: 1rem;
+        font-weight: bold;
+        color: #fff;
+        text-transform: uppercase;
+      }
+      .follow{
+        display: grid;
+        place-items: baseline;
+        justify-content: center;
+      button{
+        font-size: 1rem;
+        text-transform: uppercase;
+        margin: 0!important;
+      }
+    }
+    } 
+  }
