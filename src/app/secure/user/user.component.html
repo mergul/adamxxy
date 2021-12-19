@@ -7,21 +7,21 @@
   </section>
   <section class="paths">
     <ol>
-      <li *ngFor="let item of newsService._masterBreadcrumbList;let i=index;">
+      <li *ngFor="let item of paths;let i=index;">
         <a [routerLink]="[i==0?'../../'+item:(i==1?'../'+item:'./'+item)]"> --> {{item}}</a>
       </li>
     </ol>
   </section>
-  <section class="side" (click)="viewMode =false">
+  <section class="side">
     <article class="resume">
       <h1>Özgeçmiş</h1>
       <p>Burada dünyaya geldi. Bu dünyada yetişti.</p>
     </article>
-    <button routerLink="contents" [class.active]="viewMode">içerikler</button>
-    <button routerLink="followee">izlenen kişiler</button>
-    <button routerLink="followco">izlenen konular</button>
-    <button routerLink="followers">takipçiler</button>
-    <button routerLink="user-edit">güncelle</button>
+    <button [routerLink]="['contents']" [class.active]="viewMode">içerikler</button>
+    <button [routerLink]="['followee']">izlenen kişiler</button>
+    <button [routerLink]="['followco']">izlenen konular</button>
+    <button [routerLink]="['followers']">takipçiler</button>
+    <button [routerLink]="['user-edit']">güncelle</button>
   </section>
   <section class="center">
     <router-outlet></router-outlet>

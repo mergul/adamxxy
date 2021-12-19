@@ -5,7 +5,6 @@ import { getApp } from '@angular/fire/app';
 import { provideAuth, initializeAuth, indexedDBLocalPersistence, browserPopupRedirectResolver, Auth } from '@angular/fire/auth';
 import { AuthService } from './auth.service';
 import 'zone.js/dist/zone';
-import 'zone.js/dist/zone-patch-rxjs';
 
 const routes: Routes = [
   {

@@ -22,7 +22,7 @@
     </div>
     <h2 class="quest">What interests you?</h2>
     <div class="content">
-      <label *ngFor="let it of list; let i=index;" [for]="'tag'+i">
+      <label *ngFor="let it of list|push; let i=index;" [for]="'tag'+i">
         <input type="checkbox" [id]="'tag'+i" value="tag1">etiket1</label>
     </div>
   </article>

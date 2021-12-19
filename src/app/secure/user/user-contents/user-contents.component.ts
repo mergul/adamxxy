@@ -6,11 +6,11 @@ import { NewsService } from '@core/news.service';
   selector: 'app-user-contents',
   templateUrl: './user-contents.component.html',
   styleUrls: ['./user-contents.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserContentsComponent implements OnInit {
   // meList!: Observable<NewsPayload[]>;
-  constructor(public newsService: NewsService) { 
+  constructor(public newsService: NewsService) {
   }
 
   ngOnInit(): void {

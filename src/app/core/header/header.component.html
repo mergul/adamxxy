@@ -43,7 +43,7 @@
         </figure>
         <ul *ngSwitchCase="true" class="dropdown-menu">
           <li class="dropdown-menu-item">
-            <a routerLink="secure/user">Hesabım</a>
+            <a [routerLink]="['secure/user']">Hesabım</a>
           </li>
           <li class="dropdown-menu-item">
             <a routerLink="secure/user/user-edit">Güncelle</a>

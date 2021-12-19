@@ -33,7 +33,7 @@ export class PostsListComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
-    private winRef: WindowRef,
+    private winRef: WindowRef
   ) {}
   ngOnInit() {
     this.query = window.matchMedia('(max-width: 800px)');

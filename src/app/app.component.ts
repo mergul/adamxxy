@@ -1,18 +1,17 @@
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { filter, map, takeUntil } from 'rxjs/operators';
 import { LoaderService } from '@core/loader.service';
 import { NewsService } from '@core/news.service';
 import { ReactiveStreamsService } from '@core/reactive-streams.service';
 import { WindowRef } from '@core/window.service';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -29,10 +28,9 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(
     private reactiveService: ReactiveStreamsService,
     public ui: LoaderService,
-    private router: Router,
     public newsService: NewsService,
     private winRef: WindowRef,
-    private changeDetector: ChangeDetectorRef
+    private router: Router
   ) {
     if (!this.reactiveService.random) {
       this.reactiveService.random =
@@ -44,8 +42,9 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
       '/subscribeMessages';
     this.router.events
       .pipe(
-        takeUntil(this.destroy),
-        filter((e): e is NavigationEnd => e instanceof NavigationEnd),
+        filter(
+          (event): event is NavigationEnd => event instanceof NavigationEnd
+        ),
         map((event: any) => {
           const ll = event.urlAfterRedirects.split('/').slice(1);
           const l = Math.min(
@@ -59,8 +58,8 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
           this.newsService.setBreadcrumbList(
             event.urlAfterRedirects.split('/').slice(1)
           );
-          this.changeDetector.detectChanges();
-        })
+        }),
+        takeUntil(this.destroy)
       )
       .subscribe(() => {
         if (!this.isChildRoutePath) {

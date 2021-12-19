@@ -3,53 +3,53 @@
       <a routerLink="../" title="Close" class="modal-close">Close</a>
       <div class="modal-guts">
 <main id="details">
-    <article class="article-top">
+    <article *ngIf="(_videoUrl|push) as url" class="article-top">
         <figure class="figure">
             <video controls poster="assets/bunny.jpg" width="300px" height="200px">
-                <source [src]="_videoUrl" type="video/mp4" />
+                <source [src]="url" type="video/mp4" />
             </video>
             <figcaption>Üyelik Çok Avantajlı</figcaption>
         </figure>
     </article>
     <article class="article-se">
         <h1>Watch next</h1>
-        <section class="myel" routerLink="/details">
+        <section  *ngIf="(_videoUrl|push) as url" class="myel" routerLink="/details">
             <p>Toggle switch</p>
             <figure class="figure">
                 <video controls poster="assets/bunny.jpg" width="400px" height="280px">
-                    <source [src]="_videoUrl" type="video/mp4" />
+                    <source [src]="url" type="video/mp4" />
                 </video>
             </figure>
         </section>
-        <section class="myel" routerLink="/details">
+        <section  *ngIf="(_videoUrl|push) as url" class="myel" routerLink="/details">
             <p>Toggle switch</p>
             <figure class="figure">
                 <video controls poster="assets/bunny.jpg" width="400px" height="280px">
-                    <source [src]="_videoUrl" type="video/mp4" />
+                    <source [src]="url" type="video/mp4" />
                 </video>
             </figure>
         </section>
-        <section class="myel" routerLink="/details">
+        <section  *ngIf="(_videoUrl|push) as url" class="myel" routerLink="/details">
             <p>Toggle switch</p>
             <figure class="figure">
                 <video controls poster="assets/bunny.jpg" width="400px" height="280px">
-                    <source [src]="_videoUrl" type="video/mp4" />
+                    <source [src]="url" type="video/mp4" />
                 </video>
             </figure>
         </section>
-        <section class="myel" routerLink="/details">
+        <section  *ngIf="(_videoUrl|push) as url" class="myel" routerLink="/details">
             <p>Toggle switch</p>
             <figure class="figure">
                 <video controls poster="assets/bunny.jpg" width="400px" height="280px">
-                    <source [src]="_videoUrl" type="video/mp4" />
+                    <source [src]="url" type="video/mp4" />
                 </video>
             </figure>
         </section>
-        <section class="myel" routerLink="/details">
+        <section  *ngIf="(_videoUrl|push) as url" class="myel" routerLink="/details">
             <p>Toggle switch</p>
             <figure class="figure">
                 <video controls poster="assets/bunny.jpg" width="400px" height="280px">
-                    <source [src]="_videoUrl" type="video/mp4" />
+                    <source [src]="url" type="video/mp4" />
                 </video>
             </figure>
         </section>
@@ -58,11 +58,11 @@
         <div class="tab-slider--nav">
             <ul class="tab-slider--tabs">
                 <li class="tab-slider--trigger" [class.active]="viewMode == 'tab1'" rel="tab1"
-                    (click)="viewMode ='tab1'">Details</li>
+                    (click)="onClick('tab1')">Details</li>
                 <li class="tab-slider--trigger" [class.active]="viewMode == 'tab2'" rel="tab2"
-                    (click)="viewMode ='tab2'">Reading List</li>
+                    (click)="onClick('tab2')">Reading List</li>
                 <li class="tab-slider--trigger" [class.active]="viewMode == 'tab3'" rel="tab3"
-                    (click)="viewMode ='tab3'">Footnotes</li>
+                    (click)="onClick('tab3')">Footnotes</li>
             </ul>
         </div>
     </article>
