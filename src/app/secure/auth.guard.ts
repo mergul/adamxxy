@@ -15,10 +15,9 @@ export class AuthGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      this.ui.show();
+      if(!this.ui.isLoading.getValue()) this.ui.show();
       const img= new Image();
       img.src = 'assets/back-img.jpeg';
-      img.height = 75;
       fromEvent(img, 'load').subscribe(() => console.log('img loaded'));
       return this.authService.isLoggedIn.pipe(map(isLoggedIn => {
       if (!isLoggedIn.isIn) {

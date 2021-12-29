@@ -26,7 +26,7 @@ export class TokenInterceptor implements HttpInterceptor {
                 headers: headers.set('Authorization', `Bearer ${token}`), withCredentials: true
             });
             return next.handle(request).pipe(finalize(() => {
-                if (this.ui.isLoading) { this.ui.hide(); }
+                if (this.ui.isLoading.getValue()) { this.ui.hide(); }
             }));
         }
     }

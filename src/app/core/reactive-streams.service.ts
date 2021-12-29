@@ -39,7 +39,7 @@ export class ReactiveStreamsService {
   myListener: any;
 
   constructor(private rendererFactory: RendererFactory2) {
-      this.renderer = this.rendererFactory.createRenderer(null, null);
+    this.renderer = this.rendererFactory.createRenderer(null, null);
   }
   getNewsStream(processName: number, url: string) {
     //  let headers: HttpHeaders = new HttpHeaders();
@@ -95,16 +95,16 @@ export class ReactiveStreamsService {
         // );
       }
     );
-this.renderer.listen(
-  this.newsEventSource,
-  'user-counts',
-  (event: MessageEvent) => {
-    const userCounts = JSON.parse(event.data);
-    // this.zone.run(() =>
-    this.countsBehaviorSubject.next(userCounts);
-    // );
-  }
-);
+    this.renderer.listen(
+      this.newsEventSource,
+      'user-counts',
+      (event: MessageEvent) => {
+        const userCounts = JSON.parse(event.data);
+        // this.zone.run(() =>
+        this.countsBehaviorSubject.next(userCounts);
+        // );
+      }
+    );
     this.newsEventSource.addEventListener('close', (event: any) => {
       this.closeSources();
     });
@@ -185,53 +185,53 @@ this.renderer.listen(
   setListeners(id: string) {
     this.setFirstListeners(id);
     // this.zone.runOutsideAngular(() => {
-this.renderer.listen(
-  this.newsEventSource,
-  'top-news-' + id,
-  this.meListener
-);
-this.renderer.listen(
-  this.newsEventSource,
-  'user-counts-' + id,
-  (event: MessageEvent) => {
-    const userCounts = JSON.parse(event.data);
-    // this.zone.run(() =>
-    this.countsBehaviorSubject.next(userCounts);
-    // );
-  }
-);
-this.renderer.listen(
-  this.newsEventSource,
-  'user-history-' + id,
-  (event: MessageEvent) => {
-    const balances = JSON.parse(event.data);
-    const list = this.balanceBehaviorSubject.getValue();
-    if (list.length > 0) {
-      list.push(balances);
-    } else list.push(...balances);
-    // this.zone.run(() =>
-    this.balanceBehaviorSubject.next(list);
-    // );
-  }
-);
-this.renderer.listen(
-  this.newsEventSource,
-  'hotRecords-' + id,
-  (event: MessageEvent) => {
-    const balances = JSON.parse(event.data);
-    const list = this.hotUsersBehaviorSubject.getValue();
-    if (list.length > 0) {
-      let index = -1;
-      list.some(function (elem, i) {
-        return elem.key === balances.key && ~(index = i);
-      });
-      if (index !== -1) list.splice(index, 1, balances);
-    } else list.push(...balances);
-    // this.zone.run(() =>
-    this.hotUsersBehaviorSubject.next(list);
-    // );
-  }
-);
+    this.renderer.listen(
+      this.newsEventSource,
+      'top-news-' + id,
+      this.meListener
+    );
+    this.renderer.listen(
+      this.newsEventSource,
+      'user-counts-' + id,
+      (event: MessageEvent) => {
+        const userCounts = JSON.parse(event.data);
+        // this.zone.run(() =>
+        this.countsBehaviorSubject.next(userCounts);
+        // );
+      }
+    );
+    this.renderer.listen(
+      this.newsEventSource,
+      'user-history-' + id,
+      (event: MessageEvent) => {
+        const balances = JSON.parse(event.data);
+        const list = this.balanceBehaviorSubject.getValue();
+        if (list.length > 0) {
+          list.push(balances);
+        } else list.push(...balances);
+        // this.zone.run(() =>
+        this.balanceBehaviorSubject.next(list);
+        // );
+      }
+    );
+    this.renderer.listen(
+      this.newsEventSource,
+      'hotRecords-' + id,
+      (event: MessageEvent) => {
+        const balances = JSON.parse(event.data);
+        const list = this.hotUsersBehaviorSubject.getValue();
+        if (list.length > 0) {
+          let index = -1;
+          list.some(function (elem, i) {
+            return elem.key === balances.key && ~(index = i);
+          });
+          if (index !== -1) list.splice(index, 1, balances);
+        } else list.push(...balances);
+        // this.zone.run(() =>
+        this.hotUsersBehaviorSubject.next(list);
+        // );
+      }
+    );
     // });
   }
   setFirstListeners(id: string) {
@@ -254,21 +254,21 @@ this.renderer.listen(
     if (!this.topList.has('top-news-' + id)) {
       this.topList.set('top-news-' + id, ['me']);
       // this.zone.runOutsideAngular(() => {
-this.renderer.listen(
-  this.newsEventSource,
-  'top-news-' + id + '-' + this.random,
-  this.meListener
-);
-this.renderer.listen(
-  this.newsEventSource,
-  'top-news-people-' + id + '-' + this.random,
-  this.myListener
-);
-this.renderer.listen(
-  this.newsEventSource,
-  'top-news-tags-' + id + '-' + this.random,
-  this.myListener
-);
+      this.renderer.listen(
+        this.newsEventSource,
+        'top-news-' + id + '-' + this.random,
+        this.meListener
+      );
+      this.renderer.listen(
+        this.newsEventSource,
+        'top-news-people-' + id + '-' + this.random,
+        this.myListener
+      );
+      this.renderer.listen(
+        this.newsEventSource,
+        'top-news-tags-' + id + '-' + this.random,
+        this.myListener
+      );
       // });
     } else if (this.publicUsersStreamList$.has(id.substring(1))) {
       const myB = this.publicUsersStreamList$.get(id.substring(1));
@@ -292,6 +292,7 @@ this.renderer.listen(
         event.type.split('-')[2].substring(1),
         this.meBehaviorSubject.getValue()
       );
+      console.log('isMe --> '+JSON.stringify(event));
     } else if (isOther) {
       this.addToSubjectSingle(this.getNewsSubject('other'), event);
       this.publicUsersStreamList$.set(
@@ -302,6 +303,7 @@ this.renderer.listen(
       this.addToSubjectSingle(this.getNewsSubject(event.lastEventId), event);
     } else if (event.lastEventId === 'me') {
       this.addToSubject(this.getNewsSubject('people'), event);
+      console.log('people --> ' + JSON.stringify(event));
     } else if (event.lastEventId === 'tag') {
       this.addToSubject(this.getNewsSubject('tags'), event);
     }
@@ -373,16 +375,16 @@ this.renderer.listen(
       else this.topList.set('top-news-' + id, ['follow']);
     }
     // this.zone.runOutsideAngular(() => {
-this.renderer.listen(
-  this.newsEventSource,
-  'top-news-' + id + '-' + this.random,
-  this.myListener
-);
-this.renderer.listen(
-  this.newsEventSource,
-  'top-news-' + id,
-  this.myListener
-);
+    this.renderer.listen(
+      this.newsEventSource,
+      'top-news-' + id + '-' + this.random,
+      this.myListener
+    );
+    this.renderer.listen(
+      this.newsEventSource,
+      'top-news-' + id,
+      this.myListener
+    );
     // });
   }
   resetOtherListListeners(id: string, isMe = false) {
@@ -443,26 +445,26 @@ this.renderer.listen(
     if (!this.topList.has('top-news-' + id)) {
       this.topList.set('top-news-' + id, ['other']);
       // this.zone.runOutsideAngular(() => {
-this.renderer.listen(
-  this.newsEventSource,
-  'top-news-' + id + '-' + this.random,
-  this.heListener,
-);
-this.renderer.listen(
-  this.newsEventSource,
-  'top-news-' + id,
-  this.heListener,
-);
-this.renderer.listen(
-  this.newsEventSource,
-  'user-counts-' + id,
-  (event: MessageEvent) => {
-    const userCounts = JSON.parse(event.data);
-    // this.zone.run(() =>
-    this.countsBehaviorSubject.next(userCounts);
-    // );
-  }
-);
+      this.renderer.listen(
+        this.newsEventSource,
+        'top-news-' + id + '-' + this.random,
+        this.heListener
+      );
+      this.renderer.listen(
+        this.newsEventSource,
+        'top-news-' + id,
+        this.heListener
+      );
+      this.renderer.listen(
+        this.newsEventSource,
+        'user-counts-' + id,
+        (event: MessageEvent) => {
+          const userCounts = JSON.parse(event.data);
+          // this.zone.run(() =>
+          this.countsBehaviorSubject.next(userCounts);
+          // );
+        }
+      );
       // });
     } else if (this.publicUsersStreamList$.has(id.substring(1))) {
       const myB = this.publicUsersStreamList$.get(id.substring(1));
