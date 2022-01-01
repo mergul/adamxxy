@@ -292,7 +292,6 @@ export class ReactiveStreamsService {
         event.type.split('-')[2].substring(1),
         this.meBehaviorSubject.getValue()
       );
-      console.log('isMe --> '+JSON.stringify(event));
     } else if (isOther) {
       this.addToSubjectSingle(this.getNewsSubject('other'), event);
       this.publicUsersStreamList$.set(

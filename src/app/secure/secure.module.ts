@@ -8,29 +8,37 @@ import 'zone.js/dist/zone';
 
 const routes: Routes = [
   {
-    path: ''
+    path: '',
   },
   {
-    path: 'user', loadChildren: () =>
-      import('./user/user.module').then(m => m.UserModule)
+    path: 'user',
+    loadChildren: () => import('./user/user.module').then((m) => m.UserModule),
   },
   {
-    path: 'sign', loadChildren: () =>
-      import('./sign/sign.module').then(m => m.SignModule)
+    path: 'sign',
+    loadChildren: () => import('./sign/sign.module').then((m) => m.SignModule),
   },
   {
-    path: 'signout', loadChildren: () =>
-      import('./sign-out/sign-out.module').then(m => m.SignOutModule)
+    path: 'signout',
+    loadChildren: () =>
+      import('./sign-out/sign-out.module').then((m) => m.SignOutModule),
   },
   {
-    path: 'auth', loadChildren: () =>
-      import('./user-management/user-management.module').then(m => m.UserManagementModule)
+    path: 'auth',
+    loadChildren: () =>
+      import('./user-management/user-management.module').then(
+        (m) => m.UserManagementModule
+      ),
+  },
+  {
+    path: 'upload', loadChildren: () =>
+      import('./multi-files-upload/multi-files-upload.module').then(m => m.MultiFilesUploadModule)
   },
   // {
   //   path: 'admin', loadChildren: () =>
   //     import('./admin/admin.module').then(m => m.AdminModule)
   // },
-]
+];
 
 @NgModule({
   declarations: [ ],

@@ -101,57 +101,18 @@ export interface News {
 }
 
 export class Review {
-    private _file_name: string;
-    private _doc_description: string;
-    private _doc_name: string;
-    private _file_type: string;
-    private _has_medium: boolean;
+    public file_name: string;
+    private doc_description: string;
+    private doc_name: string;
+    private file_type: string;
+    private has_medium: boolean;
 
     constructor(fileName: string = '', desc: string = '', docName: string = '', fileType: string = '', hasMedium: boolean = false) {
-        this._file_name = fileName;
-        this._doc_description = desc;
-        this._doc_name = docName;
-        this._file_type = fileType;
-        this._has_medium = hasMedium;
-    }
-
-    public get file_name(): string {
-        return this._file_name;
-    }
-
-    public get doc_description(): string {
-        return this._doc_description;
-    }
-
-    public get doc_name(): string {
-        return this._doc_name;
-    }
-
-    public get file_type(): string {
-        return this._file_type;
-    }
-
-    public set file_name(v: string) {
-        this._file_name = v;
-    }
-
-    public set doc_description(v: string) {
-        this._doc_description = v;
-    }
-
-    public set doc_name(v: string) {
-        this._doc_name = v;
-    }
-
-    public set file_type(v: string) {
-        this._file_type = v;
-    }
-    public get has_medium(): boolean {
-        return this._has_medium;
-    }
-
-    public set has_medium(value: boolean) {
-        this._has_medium = value;
+        this.file_name = fileName;
+        this.doc_description = desc;
+        this.doc_name = docName;
+        this.file_type = fileType;
+        this.has_medium = hasMedium;
     }
 }
 
