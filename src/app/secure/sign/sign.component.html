@@ -41,7 +41,7 @@
               Confirm Password<span class="req">*</span>
             </label>
           </div>
-          <div class='error' *ngIf="mismatchPasswordsError|push">
+          <div class='error' *ngIf="registerForm.controls['password2'].valueChanges|push">
             <div class="alert-danger errormessageadduser" *ngIf="mismatchPasswordsError|push">Passwords do not
               match</div>
           </div>
