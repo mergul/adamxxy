@@ -5,7 +5,7 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoaderService } from '@core/loader.service';
 import { BehaviorSubject, Observable, of, Subject, takeUntil } from 'rxjs';
@@ -18,7 +18,7 @@ import { AuthService } from '@secure/auth.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SignComponent implements OnInit, OnDestroy {
-  viewMode = new BehaviorSubject<boolean>(false);
+  viewMode = new BehaviorSubject<boolean>(true);
   mismatchPasswordsError = new BehaviorSubject<boolean>(false);
   private readonly destroy = new Subject<void>();
   loginForm!: FormGroup;
@@ -36,16 +36,23 @@ export class SignComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private fb: FormBuilder,
     private ui: LoaderService,
-    private router: Router
+    private router: Router,
+    private cd: ChangeDetectorRef
   ) {
     this.viewMode.pipe(takeUntil(this.destroy)).subscribe((viewMode) => {
-    if(!viewMode){ 
-      this.createRegisForm();
-      this.emailCont = this.registerForm.controls['email'];
-    } else {
-      this.createLogForm();
-      this.emailCont = this.loginForm.controls['email'];
-    }
+      if (viewMode) {
+        this.createRegisForm();
+        this.emailCont = this.registerForm.controls['email'];
+        this.registerForm.statusChanges
+          .pipe(takeUntil(this.destroy))
+          .subscribe((status) => this.cd.detectChanges());
+      } else {
+        this.createLogForm();
+        this.emailCont = this.loginForm.controls['email'];
+        this.loginForm.statusChanges
+          .pipe(takeUntil(this.destroy))
+          .subscribe((status) => this.cd.detectChanges());
+      }
     });
   }
   ngOnDestroy(): void {
@@ -65,16 +72,26 @@ export class SignComponent implements OnInit, OnDestroy {
         name: ['', Validators.required],
         lastname: ['', Validators.required],
         email: ['', [Validators.required, Validators.email]],
-        password: ['', Validators.required],
-        password2: ['', Validators.required],
-      },
-      {
-        validator: matchingPasswords(
+        password: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(6),
+            Validators.maxLength(25),
+          ],
+        ],
+        password2: ['', Validators.required, matchingPasswords(
           'password',
-          'password2',
           this.mismatchPasswordsError
-        ),
+        )],
       }
+      // {
+      //   validator: matchingPasswords(
+      //     'password',
+      //     'password2',
+      //     this.mismatchPasswordsError
+      //   ),
+      // }
     );
   }
   createLogForm() {
@@ -110,27 +127,31 @@ export class SignComponent implements OnInit, OnDestroy {
   onClick(viewMode: boolean) {
     this.viewMode.next(viewMode);
   }
-  public onSubmit(formValue: any) {
+  public async onSubmit(value: any)  {
+    console.log(JSON.stringify(value));
+    if(this.viewMode.value) {
+      console.log('sign up');
+       await this.authService.signUp(value.email, value.password);
+    } else {
+      console.log('sign in');
+      await this.authService.signIn(value.email, value.password);
+    }
   }
 }
 
 export function matchingPasswords(
   passwordKey: string,
-  confirmPasswordKey: string,
-  mismatchPasswordsError: any
-) {
-  return (group: FormGroup) => {
-    const password = group.controls[passwordKey];
-    const confirmPassword = group.controls[confirmPasswordKey];
+  mismatchPasswordsError: BehaviorSubject<boolean>
+): ValidatorFn {
+  return (control: AbstractControl) => {
+    if (!control||!control.parent) {
+      return mismatchPasswordsError.asObservable();
+    }
+    const password = (control.parent?.controls as any)[passwordKey];
 
-    if (password.value !== confirmPassword.value) {
+    if (password.value !== control.value) {
       mismatchPasswordsError.next(true);
-      return {
-        mismatchedPasswords: true,
-      };
     } else mismatchPasswordsError.next(false);
-    return {
-      mismatchedPasswords: false,
-    };
+    return mismatchPasswordsError.asObservable();
   };
 }

@@ -1,12 +1,12 @@
 <div class="form">
     <ul class="tab-group">
-      <li class="tab" [class.active]="!(viewMode|push)" rel="signup"
-      (click)="onClick(false)">Sign Up</li>
-      <li class="tab" [class.active]="viewMode|push" rel="signin"
-      (click)="onClick(true)">Sign In</li>
+      <li class="tab" [class.active]="viewMode|push" rel="signup"
+      (click)="onClick(true)">Sign Up</li>
+      <li class="tab" [class.active]="!(viewMode|push)" rel="signin"
+      (click)="onClick(false)">Sign In</li>
     </ul>
     <article class="tab-content" [ngSwitch]="viewMode|push">
-        <section id="signup" class="" [class.active]="!(viewMode|push)" *ngSwitchCase="false">
+        <section id="signup" class="" [class.active]="viewMode|push" *ngSwitchCase="true">
         <h1>Sign Up for Free</h1>
         <form (ngSubmit)="onSubmit(registerForm.value)" [formGroup]="registerForm">
           <div class="top-row">
@@ -45,10 +45,10 @@
             <div class="alert-danger errormessageadduser" *ngIf="mismatchPasswordsError|push">Passwords do not
               match</div>
           </div>
-          <button type="submit" class="button button-block">Get Started</button>
+          <button [disabled]="!registerForm.valid" type="submit" class="button button-block">Get Started</button>
         </form>
     </section>
-    <section id="signin" class="signin" [class.active]="viewMode|push" *ngSwitchCase="true">
+    <section id="signin" class="signin" [class.active]="!(viewMode|push)" *ngSwitchCase="false">
         <h1>Welcome Back!</h1>
         <form (ngSubmit)="onSubmit(loginForm.value)" [formGroup]="loginForm">
           <div class="field-wrap">
@@ -68,7 +68,7 @@
             class="btn btn-danger" (click)="sendResetEmail()">Reset Password</button>
           <p *ngIf="resetPassword" class="text-success">Check your email to reset password!</p>                        
           <p class="forgot">Forgot Password?</p>
-          <button class="button button-block">Sign In</button>
+          <button [disabled]="!loginForm.valid" type="submit" class="button button-block">Sign In</button>
         </form>
         <button id="kaydet" type="button" class="butto ripple button-outline" (click)="triedGoogleLogin()">Signin with Google</button>
     </section>

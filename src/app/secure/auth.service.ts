@@ -139,9 +139,16 @@ export class AuthService implements OnInit, OnDestroy {
     return await asd
       .createUserWithEmailAndPassword(this.auth, email, password)
       .then((result) => {
-        asd.sendEmailVerification(result.user).then(() => {
-          this.router.navigate(['verify-email-address']);
-        });
+        asd
+          .sendEmailVerification(result.user, {
+            url: 'http://localhost:4200/auth', // Here we redirect back to this same page.
+            handleCodeInApp: true, // This must be true.
+          })
+          .then(() => {
+            setTimeout(() => {
+            this.router.navigate(['secure/user']);              
+            }, 0);
+          });
       })
       .catch((error) => {
         window.alert(error.message);

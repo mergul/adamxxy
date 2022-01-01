@@ -176,6 +176,7 @@ textarea {
   font-weight: $bold;
   text-transform: uppercase;
   letter-spacing: .1em;
+  cursor: pointer;
   background: $main;
   color: $white;
   transition:all .5s ease;
