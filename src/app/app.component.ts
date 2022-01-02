@@ -79,7 +79,6 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     this.destroy.complete();
   }
   ngAfterViewInit(): void {
-    // this.zone.run(() => {
     this.winRef.nativeWindow.onload = () => {
       if (!this.reactiveService.statusOfNewsSource()) {
         this.reactiveService.getNewsStream(
@@ -124,13 +123,5 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
           )
         );
     };
-    //  });
   }
 }
-// this.ui.isLoading.pipe(takeUntil(this.destroy), map(value => {
-//    this.zone.run(() => {
-//     const el = this.winRef.nativeWindow.document.getElementById('spinner');
-//     el.style.display = value ? 'block' : 'none';
-//     value ? el.nextSibling.classList.add('blurred') : el.nextSibling.classList.remove('blurred');
-//    })
-// })).subscribe();
