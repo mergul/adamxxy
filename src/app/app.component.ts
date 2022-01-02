@@ -49,12 +49,12 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
           const ll = event.urlAfterRedirects.split('/').slice(1);
           const l = Math.min(
             ll.length - 1,
-            this.newsService.getBreadcrumbList().length - 1
+            this.newsService.paths.value.length - 1
           );
           this.isChildRoutePath =
-            this.newsService.getBreadcrumbList()[l] == ll[l];
+            this.newsService.paths.value[l] == ll[l];
           this.isNeighbor =
-            l > 0 && this.newsService.getBreadcrumbList()[l - 1] == ll[l - 1];
+            l > 0 && this.newsService.paths.value[l - 1] == ll[l - 1];
           this.newsService.setBreadcrumbList(
             event.urlAfterRedirects.split('/').slice(1)
           );

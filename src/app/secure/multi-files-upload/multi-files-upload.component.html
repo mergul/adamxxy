@@ -1,9 +1,9 @@
 <div id="open-modal" class="modal-window">
     <div>
-        <a routerLink="../../" title="Close" class="modal-close">Close</a>
+        <a routerLink="/home" title="Close" class="modal-close">Close</a>
         <div class="modal-guts">
 <section class="upload">
-    <form [formGroup]="documentGrp" (ngSubmit)="OnSubmit(documentGrp.value)" ngNativeValidate style="margin-top: 0px;">
+    <form [formGroup]="documentGrp" (ngSubmit)="OnSubmit(documentGrp.value)" style="margin-top: 0px;">
         <div class="nock">
             <div>
                 <button #startTopButton type="button" id="micro1" [disabled]="startTopButtonDisabled"
@@ -40,7 +40,7 @@
             </div>
         </div>
         <div class="box-footer" style="align-content: center; text-align: center; padding: 20px">
-            <button id="micro3" [disabled]="!(this.isTopicValid && this.isDescValid)" type="submit"
+            <button id="micro3" [disabled]="!(logStatusValidity|push)" type="submit"
                 class="butto ripple button-outline" style="width: 50%">Yayımla</button>
         </div>
     </form>

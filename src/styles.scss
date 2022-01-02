@@ -12,6 +12,10 @@ body{
     margin: 0px;
     box-sizing: border-box;
   }
+  button:disabled {
+    cursor: not-allowed !important;
+    pointer-events: all !important;
+}
   .butto{
       background-color: #c978dd;
       color: #fff;

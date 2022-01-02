@@ -11,20 +11,20 @@
         <form (ngSubmit)="onSubmit(registerForm.value)" [formGroup]="registerForm">
           <div class="top-row">
             <div class="field-wrap">
-              <input id="name" type="text" placeholder=" " required autocomplete="off" />
+              <input formControlName="name" id="name" type="text" placeholder=" " required autocomplete="off" />
               <label for="name">
                 First Name<span class="req">*</span>
               </label>
             </div>
             <div class="field-wrap">
-              <input id="lastname" type="text" placeholder=" " required autocomplete="off" />
+              <input formControlName="lastname" id="lastname" type="text" placeholder=" " required autocomplete="off" />
               <label for="lastname">
                 Last Name<span class="req">*</span>
               </label>
             </div>
           </div> 
           <div class="field-wrap">
-            <input id="email" type="email" placeholder=" " required autocomplete="off" />
+            <input formControlName="email" id="email" type="email" placeholder=" " required autocomplete="off" />
             <label for="email">
               Email Address<span class="req">*</span>
             </label>
@@ -45,7 +45,7 @@
             <div class="alert-danger errormessageadduser" *ngIf="mismatchPasswordsError|push">Passwords do not
               match</div>
           </div>
-          <button [disabled]="!registerForm.valid" type="submit" class="button button-block">Get Started</button>
+          <button [disabled]="!(regStatusValidity|push)" type="submit" class="button button-block">Get Started</button>
         </form>
     </section>
     <section id="signin" class="signin" [class.active]="!(viewMode|push)" *ngSwitchCase="false">
@@ -68,7 +68,7 @@
             class="btn btn-danger" (click)="sendResetEmail()">Reset Password</button>
           <p *ngIf="resetPassword" class="text-success">Check your email to reset password!</p>                        
           <p class="forgot">Forgot Password?</p>
-          <button [disabled]="!loginForm.valid" type="submit" class="button button-block">Sign In</button>
+          <button [disabled]="!(logStatusValidity|push)" type="submit" class="button button-block">Sign In</button>
         </form>
         <button id="kaydet" type="button" class="butto ripple button-outline" (click)="triedGoogleLogin()">Signin with Google</button>
     </section>

@@ -11,9 +11,9 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
 } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
 
-import { Observable, Subject, from, Subscription } from 'rxjs';
+import { Observable, Subject, from, Subscription, BehaviorSubject } from 'rxjs';
 import { NewsFeed, Review } from '@core/news.model';
 import { DOCUMENT } from '@angular/common';
 import { map, takeUntil } from 'rxjs/operators';
@@ -32,11 +32,12 @@ export class MultiFilesUploadComponent
   implements OnInit, AfterViewInit, OnDestroy
 {
   private readonly onDestroy = new Subject<void>();
+  subs!: Subscription;
   private _url: Array<string> = [];
   private _purl: Array<string> = [];
   private thumburl: Array<string> = [];
   private signed: Map<string, string> = new Map<string, string>();
-  public documentGrp!: FormGroup;
+  documentGrp!: FormGroup;
   public newsFeed!: NewsFeed;
   speechMessages!: Observable<RecognitionResult>;
   languages: string[] = ['tr', 'en', 'es', 'de', 'fr'];
@@ -70,6 +71,7 @@ export class MultiFilesUploadComponent
   loggedID!: string;
   isTopicValid = false;
   isDescValid = false;
+  logStatusValidity = new BehaviorSubject<boolean>(false);
 
   constructor(
     private authService: AuthService,
@@ -79,15 +81,35 @@ export class MultiFilesUploadComponent
     @Inject(DOCUMENT) private document: Document,
     private renderer: Renderer2,
     private router: Router,
-    private changeDetector: ChangeDetectorRef
+    private cd: ChangeDetectorRef
   ) {
     this.documentGrp = this.formBuilder.group({
-      news_topic: new FormControl(['']),
-      news_description: new FormControl(['']),
-      items: this.formBuilder.array([this.createUploadDocuments()]),
+      news_topic: ['', [Validators.required, Validators.minLength(10)]],
+      news_description: [
+        '',
+        [
+          Validators.required,
+          Validators.maxLength(500),
+          Validators.minLength(10),
+        ],
+      ],
+      items: this.formBuilder.array([]),
+    });
+    this.documentGrp.statusChanges
+      .pipe(takeUntil(this.onDestroy))
+      .subscribe((status) => this.logStatusValidity.next(status === 'VALID'));
+    setTimeout(() => {
+      this.cd.detectChanges();
     });
   }
 
+  createUploadDocuments(file: any) {
+    const newImage = new FormControl(file, Validators.required);
+    (<FormArray>this.documentGrp.get('items')).push(newImage);
+  }
+  // get items(): FormArray {
+  //   return this.documentGrp.get('items') as FormArray;
+  // }
   ngOnInit() {
     this.speechService.init();
     if (this.speechService._supportRecognition) {
@@ -113,14 +135,12 @@ export class MultiFilesUploadComponent
       this.startTopButtonDisabled = true;
     }
     this.loggedID = window.history.state.loggedID;
-    this.documentGrp.valueChanges.pipe(takeUntil(this.onDestroy)).subscribe((x) => {
-      this.isTopicValid =
-        this.documentGrp.controls['news_topic'].value.toString().trim().length >
-        3;
-      this.isDescValid =
-        this.documentGrp.controls['news_description'].value.toString().trim()
-          .length > 3;
-    });
+    // this.documentGrp.valueChanges.pipe(takeUntil(this.onDestroy)).subscribe((x) => {
+    //   this.isTopicValid =
+    //     this.documentGrp.controls['news_topic'].valid
+    //   this.isDescValid =
+    //     this.documentGrp.controls['news_description'].valid;
+    // });
   }
   @HostListener('window:keyup.esc') onKeyUp() {
     this.onClose();
@@ -279,20 +299,11 @@ export class MultiFilesUploadComponent
   get thumbs(): Map<string, Blob> {
     return this.multifilesService.thumbs;
   }
-
-  createUploadDocuments(): FormGroup {
-    return this.formBuilder.group({
-      documentFile: File,
-    });
-  }
-
-  get items(): FormArray {
-    return this.documentGrp.get('items') as FormArray;
-  }
   removeAll() {
     this.totalFiles.splice(0, this.totalFiles.length);
     this.thumbs.clear();
     this._url.splice(0, this._url.length);
+    this.documentGrp.reset();
   }
 
   public generateThumbnail(videoFile: Blob, oldIndex: number): Promise<string> {
@@ -380,6 +391,7 @@ export class MultiFilesUploadComponent
     const rat = 788 / 580;
     const rati = 174 / 109;
     this.totalFiles[oldIndex] = fileInput;
+    this.createUploadDocuments(fileInput);
     if (this.totalFiles[oldIndex].type.includes('video')) {
       this.generateThumbnail(this.totalFiles[oldIndex], oldIndex).then(
         (data) => {
@@ -489,6 +501,11 @@ export class MultiFilesUploadComponent
   }
 
   public OnSubmit(formValue: any) {
+    if (formValue.news_topic === '') {
+      console.log('Lütfen Haber Başlığı Giriniz');
+      return;
+    }
+
     // this.uploadToSignStorage();
     const AllFilesObj: Review[] = [];
     let MediaPartObj = [];
@@ -538,6 +555,7 @@ export class MultiFilesUploadComponent
     );
     this.multifilesService.newsFeedStore.next(this.newsFeed);
     this.multifilesService.uploadAction.pipe().subscribe((value) => {
+      console.log('multi -->',value);
       this.router.navigate(['/secure/user']);
     });
   }
@@ -572,6 +590,7 @@ export class MultiFilesUploadComponent
     //   'background',
     //   'blue'
     // );
+    console.log('ngAfterViewInit');
     if (!this.speechService._supportRecognition) {
       alert('Your Browser has no support for Speech!');
     }

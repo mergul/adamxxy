@@ -20,6 +20,8 @@ import { AuthService } from '@secure/auth.service';
 export class SignComponent implements OnInit, OnDestroy {
   viewMode = new BehaviorSubject<boolean>(true);
   mismatchPasswordsError = new BehaviorSubject<boolean>(false);
+  regStatusValidity = new BehaviorSubject<boolean>(false);
+  logStatusValidity = new BehaviorSubject<boolean>(false);
   private readonly destroy = new Subject<void>();
   loginForm!: FormGroup;
   registerForm!: FormGroup;
@@ -45,14 +47,17 @@ export class SignComponent implements OnInit, OnDestroy {
         this.emailCont = this.registerForm.controls['email'];
         this.registerForm.statusChanges
           .pipe(takeUntil(this.destroy))
-          .subscribe((status) => this.cd.detectChanges());
+          .subscribe((status) => this.regStatusValidity.next(status === 'VALID'));
       } else {
         this.createLogForm();
         this.emailCont = this.loginForm.controls['email'];
         this.loginForm.statusChanges
           .pipe(takeUntil(this.destroy))
-          .subscribe((status) => this.cd.detectChanges());
+          .subscribe((status) => this.logStatusValidity.next(status === 'VALID'));
       }
+      // setTimeout(() => {
+      //   this.cd.detectChanges();
+      // }, 0); 
     });
   }
   ngOnDestroy(): void {
@@ -67,37 +72,25 @@ export class SignComponent implements OnInit, OnDestroy {
     );
   }
   createRegisForm() {
-    this.registerForm = this.fb.group(
-      {
-        name: ['', Validators.required],
-        lastname: ['', Validators.required],
-        email: ['', [Validators.required, Validators.email]],
-        password: [
-          '',
-          [
-            Validators.required,
-            Validators.minLength(6),
-            Validators.maxLength(25),
-          ],
+    this.registerForm = this.fb.group({
+      name: ['', [Validators.required, Validators.minLength(1)]],
+      lastname: ['', [Validators.required, Validators.minLength(1)]],
+      email: ['', [Validators.required, Validators.email]],
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(6),
+          Validators.maxLength(25),
         ],
-        password2: ['', Validators.required, matchingPasswords(
-          'password',
-          this.mismatchPasswordsError
-        )],
-      }
-      // {
-      //   validator: matchingPasswords(
-      //     'password',
-      //     'password2',
-      //     this.mismatchPasswordsError
-      //   ),
-      // }
-    );
+      ],
+      password2: ['', [Validators.required, matchingPasswords('password', this.mismatchPasswordsError)]],
+    });
   }
   createLogForm() {
     this.loginForm = this.fb.group({
-      email: ['', Validators.required],
-      password: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
   async triedGoogleLogin() {
@@ -127,11 +120,11 @@ export class SignComponent implements OnInit, OnDestroy {
   onClick(viewMode: boolean) {
     this.viewMode.next(viewMode);
   }
-  public async onSubmit(value: any)  {
+  public async onSubmit(value: any) {
     console.log(JSON.stringify(value));
-    if(this.viewMode.value) {
+    if (this.viewMode.value) {
       console.log('sign up');
-       await this.authService.signUp(value.email, value.password);
+      await this.authService.signUp(value.email, value.password);
     } else {
       console.log('sign in');
       await this.authService.signIn(value.email, value.password);
@@ -143,7 +136,7 @@ export function matchingPasswords(
   passwordKey: string,
   mismatchPasswordsError: BehaviorSubject<boolean>
 ): ValidatorFn {
-  return (control: AbstractControl) => {
+  return (control: AbstractControl): ValidationErrors | null  => {
     if (!control||!control.parent) {
       return mismatchPasswordsError.asObservable();
     }
@@ -151,7 +144,8 @@ export function matchingPasswords(
 
     if (password.value !== control.value) {
       mismatchPasswordsError.next(true);
+      return { mismatchPasswords: true };
     } else mismatchPasswordsError.next(false);
-    return mismatchPasswordsError.asObservable();
+    return null;
   };
 }

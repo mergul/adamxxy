@@ -1,6 +1,6 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { News, NewsPayload } from './news.model';
 import { RecordSSE } from './record.sse';
 
@@ -31,18 +31,19 @@ export class NewsService {
     list$!: NewsPayload[];
     preList: any[]=[];
     _isConnected = true;
-    _masterBreadcrumbList=['home'];
+    //_masterBreadcrumbList=['home'];
     preModalUrl!: string;
     endPlayer: Subject<boolean>=new Subject();
     scrollEmitter = new EventEmitter<Observable<boolean>>();
+    paths: BehaviorSubject<string[]> = new BehaviorSubject<string[]>(['home']);
 
     constructor(protected http: HttpClient) {
     }
-    getBreadcrumbList(): string[] {
-        return this._masterBreadcrumbList;  
+    getBreadcrumbList(): Observable<string[]> {
+        return this.paths.asObservable();  
     }
     setBreadcrumbList(list: string[]) {
-        this._masterBreadcrumbList = list;
+        this.paths.next(list);
     }
     setNewsList(tags: Array<string>, byOwners: boolean) {
         if (byOwners) {
