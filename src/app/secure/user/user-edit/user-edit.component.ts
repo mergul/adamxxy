@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { UserService } from '@core/user.service';
 
 @Component({
   selector: 'app-user-edit',
@@ -8,7 +9,9 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 })
 export class UserEditComponent implements OnInit {
 
-  constructor() { }
+  constructor(private userService: UserService) { 
+    this.userService.viewStore.next(4);
+  }
 
   ngOnInit(): void {
   }

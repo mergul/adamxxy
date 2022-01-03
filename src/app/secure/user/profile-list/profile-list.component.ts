@@ -27,5 +27,6 @@ export class ProfileListComponent implements OnInit {
   }
   set mtype(value: number) {
     this._mtype = value;
+    this.userService.viewStore.next(value===1?3:1);
   }
 }

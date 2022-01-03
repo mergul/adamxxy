@@ -35,6 +35,8 @@ export class UserService {
     'Takip Edilen Etiketler',
     'Takip Edilen Kişiler',
   ];
+  viewStore: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+  viewState: Observable<number> = this.viewStore.asObservable();
 
   constructor(private http: HttpClient) {}
 

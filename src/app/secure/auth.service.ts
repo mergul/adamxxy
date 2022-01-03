@@ -70,7 +70,6 @@ export class AuthService implements OnInit, OnDestroy {
           takeUntil(this.destroy)
         )
         .subscribe((user) => {
-          this.userService._meStore.next(user);
           if (user) {
             this.userService.newsCo.set(
               this.userService.links[1],
@@ -87,7 +86,7 @@ export class AuthService implements OnInit, OnDestroy {
               })
             );
           }
-          this.ref.tick();
+          this.userService._meStore.next(user);
         });
     }
     this.userService.logoutEmitter

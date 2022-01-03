@@ -11,6 +11,7 @@ import { UserService } from '@core/user.service';
 })
 export class FollowersComponent implements OnInit {
   constructor(public userService: UserService, public newsService: NewsService, public route: ActivatedRoute) {
+    this.userService.viewStore.next(2);
   }
 
   ngOnInit(): void {}

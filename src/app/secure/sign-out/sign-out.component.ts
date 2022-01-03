@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '@secure/auth.service';
 
@@ -10,7 +10,10 @@ import { AuthService } from '@secure/auth.service';
 })
 export class SignOutComponent implements OnInit {
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private authService: AuthService, private router: Router, private cd: ChangeDetectorRef) {
+     setTimeout(() => {
+       this.cd.detectChanges();
+     }, 0);
   }
 
   async ngOnInit() {

@@ -17,11 +17,11 @@
       <h1>Özgeçmiş</h1>
       <p>Burada dünyaya geldi. Bu dünyada yetişti.</p>
     </article>
-    <button [routerLink]="['contents']" [class.active]="viewMode">içerikler</button>
-    <button [routerLink]="['followee']">izlenen kişiler</button>
-    <button [routerLink]="['followco']">izlenen konular</button>
-    <button [routerLink]="['followers']">takipçiler</button>
-    <button [routerLink]="['user-edit']">güncelle</button>
+    <button [routerLink]="['contents']" [class.active]="(userService.viewState|push)===0">içerikler</button>
+    <button [routerLink]="['followee']" [class.active]="(userService.viewState|push)===1">izlenen kişiler</button>
+    <button [routerLink]="['followco']" [class.active]="(userService.viewState|push)===2">izlenen konular</button>
+    <button [routerLink]="['followers']" [class.active]="(userService.viewState|push)===3">takipçiler</button>
+    <button [routerLink]="['user-edit']" [class.active]="(userService.viewState|push)===4">güncelle</button>
   </section>
   <section class="center">
     <router-outlet></router-outlet>

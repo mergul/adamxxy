@@ -1,10 +1,12 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   OnDestroy,
   OnInit,
 } from '@angular/core';
 import { NewsService } from '@core/news.service';
+import { UserService } from '@core/user.service';
 
 @Component({
   selector: 'app-user',
@@ -13,9 +15,14 @@ import { NewsService } from '@core/news.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserComponent implements OnInit, OnDestroy {
-  viewMode = true;
   
-  constructor(public newsService: NewsService) {}
+  constructor(public newsService: NewsService, public userService: UserService, private cd: ChangeDetectorRef) {
+    this.userService._meState.subscribe((state) => {
+      setTimeout(() => {
+        this.cd.detectChanges();
+      }, 0);
+    });
+  }
   
   ngOnDestroy(): void {
     window.scrollTo(0, 0);

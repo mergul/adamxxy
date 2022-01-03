@@ -55,9 +55,9 @@ export class SignComponent implements OnInit, OnDestroy {
           .pipe(takeUntil(this.destroy))
           .subscribe((status) => this.logStatusValidity.next(status === 'VALID'));
       }
-      // setTimeout(() => {
-      //   this.cd.detectChanges();
-      // }, 0); 
+      setTimeout(() => {
+        this.cd.detectChanges();
+      }, 0); 
     });
   }
   ngOnDestroy(): void {
