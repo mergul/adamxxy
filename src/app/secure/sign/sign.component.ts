@@ -55,6 +55,13 @@ export class SignComponent implements OnInit, OnDestroy {
           .pipe(takeUntil(this.destroy))
           .subscribe((status) => this.logStatusValidity.next(status === 'VALID'));
       }
+      this.emailCont.valueChanges
+        .pipe(takeUntil(this.destroy))
+        .subscribe((value) => {
+          this.errorMessage = this.emailCont.invalid
+            ? 'Invalid email format'
+            : '';
+      });
       setTimeout(() => {
         this.cd.detectChanges();
       }, 0); 

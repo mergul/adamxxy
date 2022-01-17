@@ -16,7 +16,7 @@ import { FormBuilder, FormGroup, FormArray, FormControl, Validators } from '@ang
 import { Observable, Subject, from, Subscription, BehaviorSubject } from 'rxjs';
 import { NewsFeed, Review } from '@core/news.model';
 import { DOCUMENT } from '@angular/common';
-import { map, takeUntil } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { SpeechService, RecognitionResult } from './speech-service';
 import { MultiFilesService } from './multi-files.service';
 import { AuthService } from '@secure/auth.service';
@@ -28,8 +28,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./multi-files-upload.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MultiFilesUploadComponent
-  implements OnInit, AfterViewInit, OnDestroy
+export class MultiFilesUploadComponent implements OnInit, AfterViewInit, OnDestroy
 {
   private readonly onDestroy = new Subject<void>();
   subs!: Subscription;
@@ -77,7 +76,7 @@ export class MultiFilesUploadComponent
     private authService: AuthService,
     private formBuilder: FormBuilder,
     public multifilesService: MultiFilesService,
-    private speechService: SpeechService,
+    public speechService: SpeechService,
     @Inject(DOCUMENT) private document: Document,
     private renderer: Renderer2,
     private router: Router,
@@ -99,6 +98,8 @@ export class MultiFilesUploadComponent
       .pipe(takeUntil(this.onDestroy))
       .subscribe((status) => this.logStatusValidity.next(status === 'VALID'));
     setTimeout(() => {
+      this.ngOnInit();
+     // this.ngAfterViewInit();
       this.cd.detectChanges();
     });
   }
@@ -114,33 +115,28 @@ export class MultiFilesUploadComponent
     this.speechService.init();
     if (this.speechService._supportRecognition) {
       this.speechService.initializeSettings(this.currentLanguage);
-      this.speechMessages = this.speechService.getMessage().pipe(
-        map((text: RecognitionResult) => {
-          this.finalTranscript = text?.transcript!;
-          if (text.transcript && text.info === 'final_transcript') {
-            this.handleSentence(this.finalTranscript);
-          } else if (text.transcript && text.info === 'print') {
-            this.handleSendButton(text.transcript);
-          }
-          if (this.isTopicActivated && this.miTopText) {
-            text.transcript = this.miTopText;
-          } else if (this.isDescActivated && this.miDescText) {
-            text.transcript = this.miDescText;
-          }
-          return text;
-        })
-      );
+      // this.speechMessages = this.speechService.getMessage().pipe(
+      //   map((text: RecognitionResult) => {
+      //     this.finalTranscript = text?.transcript!;
+      //     if (text.transcript && text.info === 'final_transcript') {
+      //       this.handleSentence(this.finalTranscript);
+      //     } else if (text.transcript && text.info === 'print') {
+      //       this.handleSendButton(text.transcript);
+      //     }
+      //     if (this.isTopicActivated && this.miTopText) {
+      //       text.transcript = this.miTopText;
+      //     } else if (this.isDescActivated && this.miDescText) {
+      //       text.transcript = this.miDescText;
+      //     }
+      //     console.log('speech --> ', text);
+      //     return text;
+      //   })
+      // );
     } else {
       this.startDescButtonDisabled = true;
       this.startTopButtonDisabled = true;
     }
     this.loggedID = window.history.state.loggedID;
-    // this.documentGrp.valueChanges.pipe(takeUntil(this.onDestroy)).subscribe((x) => {
-    //   this.isTopicValid =
-    //     this.documentGrp.controls['news_topic'].valid
-    //   this.isDescValid =
-    //     this.documentGrp.controls['news_description'].valid;
-    // });
   }
   @HostListener('window:keyup.esc') onKeyUp() {
     this.onClose();
@@ -235,7 +231,7 @@ export class MultiFilesUploadComponent
         this.speechService.stop();
         return;
       }
-      this.speechService.startSpeech(stream.startTime);
+      this.speechService.startSpeech(stream.startTime, this.whichButton);
       if (this.isTopicActivated) {
         this.renderer.setProperty(
           this.startTopButton.nativeElement,
@@ -304,6 +300,7 @@ export class MultiFilesUploadComponent
     this.thumbs.clear();
     this._url.splice(0, this._url.length);
     this.documentGrp.reset();
+    this.speechService.stop();
   }
 
   public generateThumbnail(videoFile: Blob, oldIndex: number): Promise<string> {
@@ -555,7 +552,7 @@ export class MultiFilesUploadComponent
     );
     this.multifilesService.newsFeedStore.next(this.newsFeed);
     this.multifilesService.uploadAction.pipe().subscribe((value) => {
-      console.log('multi -->',value);
+      this.speechService.resetState();
       this.router.navigate(['/secure/user']);
     });
   }

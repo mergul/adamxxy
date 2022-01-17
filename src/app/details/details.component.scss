@@ -67,9 +67,9 @@
 #details{
     display: grid;
     grid-template: 
-    "a b" auto
+    "a b" calc(38/100 * 100vw + .25rem)
     "c b" auto
-    "d b" 9fr / 2fr 1fr;
+    "d b" auto / 2fr 1fr;
     gap: .5rem;
 }
 .article-top{

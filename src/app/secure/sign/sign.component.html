@@ -26,8 +26,9 @@
           <div class="field-wrap">
             <input formControlName="email" id="email" type="email" placeholder=" " required autocomplete="off" />
             <label for="email">
-              Email Address<span class="req">*</span>
+              {{!errorMessage?'Email Address':''}}<span class="req">*</span>
             </label>
+            <label *ngIf="errorMessage.length>5" class="error">{{errorMessage}}</label>
           </div> 
           <div class="field-wrap">
             <input formControlName="password" id="password" type="password" placeholder="Set Password" required autocomplete="off" />
@@ -54,8 +55,9 @@
           <div class="field-wrap">
             <input formControlName="email" id="email" type="email" placeholder=" " required autocomplete="off" />
             <label for="email">
-              Email Address<span class="req">*</span>
+              {{!errorMessage?'Email Address':''}}<span class="req">*</span>
             </label>
+            <label *ngIf="errorMessage.length>5" class="error">{{errorMessage}}</label>
           </div>
           <div class="field-wrap">
             <input formControlName="password" id="password" type="password" placeholder=" " required autocomplete="off" />
