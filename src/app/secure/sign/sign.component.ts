@@ -109,7 +109,6 @@ export class SignComponent implements OnInit, OnDestroy {
   }
   sendResetEmail() {
     this.clearErrorMessage();
-
     this.authService
       .resetPassword(this.loginForm.controls['email'].value)
       .then(() => {
