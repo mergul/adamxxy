@@ -144,7 +144,7 @@ export class SpeechService {
     };
   }
   stop() {
-    this._speech.stop();
+    this._speech?.stop();
   }
   // getMessage(isFirst: boolean): Observable<RecognitionResult> {
   //   return isFirst
