@@ -5,7 +5,14 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  ValidationErrors,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoaderService } from '@core/loader.service';
 import { BehaviorSubject, Observable, of, Subject, takeUntil } from 'rxjs';
@@ -29,11 +36,12 @@ export class SignComponent implements OnInit, OnDestroy {
   error: { name: string; message: string } = { name: '', message: '' };
   email = '';
   emailCont!: AbstractControl;
+  passCont!: AbstractControl;
   resetPassword = false;
   _isLoading!: Observable<boolean>;
   EMAIL_REGEXP =
     /^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i;
-  isValidMailFormat = of(false);
+  // isValidMailFormat = of(false);
   constructor(
     private authService: AuthService,
     private fb: FormBuilder,
@@ -45,27 +53,35 @@ export class SignComponent implements OnInit, OnDestroy {
       if (viewMode) {
         this.createRegisForm();
         this.emailCont = this.registerForm.controls['email'];
+        this.passCont = this.registerForm.controls['password'];
         this.registerForm.statusChanges
           .pipe(takeUntil(this.destroy))
-          .subscribe((status) => this.regStatusValidity.next(status === 'VALID'));
+          .subscribe((status) =>
+            this.regStatusValidity.next(status === 'VALID')
+          );
       } else {
         this.createLogForm();
         this.emailCont = this.loginForm.controls['email'];
+        this.passCont = this.loginForm.controls['password'];
         this.loginForm.statusChanges
           .pipe(takeUntil(this.destroy))
-          .subscribe((status) => this.logStatusValidity.next(status === 'VALID'));
+          .subscribe((status) =>
+            this.logStatusValidity.next(status === 'VALID')
+          );
       }
-      this.emailCont.valueChanges
-        .pipe(takeUntil(this.destroy))
-        .subscribe((value) => {
-          this.errorMessage = this.emailCont.invalid
-            ? 'Invalid email format'
-            : '';
-      });
       setTimeout(() => {
         this.cd.detectChanges();
-      }, 0); 
+      }, 0);
     });
+  }
+  checkError(control: AbstractControl) {
+    return !!control.value&&(control.invalid && (control.dirty || control.touched)); 
+  }
+  stringifyError(error: ValidationErrors) {
+    return Object.keys(error)
+      .filter((key) => key !== 'required')
+      .map((key) => 'Invalid ' + key + ' error!!!')
+      .join(' ');
   }
   ngOnDestroy(): void {
     this.destroy.next();
@@ -73,10 +89,10 @@ export class SignComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.isValidMailFormat = of(
-      this.emailCont.value.toString().length === 0 &&
-        !this.EMAIL_REGEXP.test(this.emailCont.value)
-    );
+    // this.isValidMailFormat = of(
+    //   this.emailCont.value.toString().length === 0 &&
+    //     !this.EMAIL_REGEXP.test(this.emailCont.value)
+    // );
   }
   createRegisForm() {
     this.registerForm = this.fb.group({
@@ -91,7 +107,13 @@ export class SignComponent implements OnInit, OnDestroy {
           Validators.maxLength(25),
         ],
       ],
-      password2: ['', [Validators.required, matchingPasswords('password', this.mismatchPasswordsError)]],
+      password2: [
+        '',
+        [
+          Validators.required,
+          matchingPasswords('password', this.mismatchPasswordsError),
+        ],
+      ],
     });
   }
   createLogForm() {
@@ -117,6 +139,7 @@ export class SignComponent implements OnInit, OnDestroy {
       })
       .catch((_error: { name: string; message: string }) => {
         this.error = _error;
+        this.cd.detectChanges();
       });
   }
   clearErrorMessage() {
@@ -133,7 +156,11 @@ export class SignComponent implements OnInit, OnDestroy {
       await this.authService.signUp(value.email, value.password);
     } else {
       console.log('sign in');
-      await this.authService.signIn(value.email, value.password);
+      await this.authService.signIn(value.email, value.password)
+      .catch((_error: { name: string; message: string }) => {
+        this.error = _error;
+        this.cd.detectChanges();
+      });
     }
   }
 }
@@ -142,8 +169,8 @@ export function matchingPasswords(
   passwordKey: string,
   mismatchPasswordsError: BehaviorSubject<boolean>
 ): ValidatorFn {
-  return (control: AbstractControl): ValidationErrors | null  => {
-    if (!control||!control.parent) {
+  return (control: AbstractControl): ValidationErrors | null => {
+    if (!control || !control.parent) {
       return mismatchPasswordsError.asObservable();
     }
     const password = (control.parent?.controls as any)[passwordKey];

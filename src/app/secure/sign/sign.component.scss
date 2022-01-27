@@ -100,6 +100,9 @@ label {
   	color: $white;
   }
 }
+.error {
+    position: relative;
+}
 input:valid ~ label, input:not(:placeholder-shown) ~ label {
     transform: translateY(6px);
     left: 2px;
@@ -185,7 +188,7 @@ textarea {
     background: $main-dark;
   }
 }
-#kaydet{ color:#fff !important; }
+.kaydet{ color:#fff !important; }
 .button-block {
   display: block;
   width: 100%;

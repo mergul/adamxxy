@@ -26,14 +26,13 @@
           <div class="field-wrap">
             <input formControlName="email" id="email" type="email" placeholder=" " required autocomplete="off" />
             <label for="email">
-              {{!errorMessage?'Email Address':''}}<span class="req">*</span>
+              {{!checkError(this.emailCont)?'Email Address':emailCont.errors&&stringifyError(this.emailCont.errors)}}<span class="req">*</span>
             </label>
-            <label *ngIf="errorMessage.length>5" class="error">{{errorMessage}}</label>
           </div> 
           <div class="field-wrap">
             <input formControlName="password" id="password" type="password" placeholder="Set Password" required autocomplete="off" />
             <label for="password">
-              Set Password<span class="req">*</span>
+              {{!checkError(this.passCont)?'Set Password':this.passCont.errors&&stringifyError(passCont.errors)}}<span class="req">*</span>
             </label>
           </div>
           <div class="field-wrap">
@@ -55,9 +54,8 @@
           <div class="field-wrap">
             <input formControlName="email" id="email" type="email" placeholder=" " required autocomplete="off" />
             <label for="email">
-              {{!errorMessage?'Email Address':''}}<span class="req">*</span>
+              {{!checkError(this.emailCont)?'Email Address':emailCont.errors&&stringifyError(this.emailCont.errors)}}<span class="req">*</span>
             </label>
-            <label *ngIf="errorMessage.length>5" class="error">{{errorMessage}}</label>
           </div>
           <div class="field-wrap">
             <input formControlName="password" id="password" type="password" placeholder=" " required autocomplete="off" />
@@ -65,14 +63,14 @@
               Password<span class="req">*</span>
             </label>
           </div>
-          <label class="error">{{errorMessage}}</label>
-          <button *ngIf="!resetPassword && (isValidMailFormat|push)&&errorMessage.length>0"
-            class="btn btn-danger" (click)="sendResetEmail()">Reset Password</button>
+          <label *ngIf="!!error.message" class="error">{{error.message}}</label>
+          <button *ngIf="!resetPassword&&error.message" 
+            class="butto ripple button-outline kaydet" (click)="sendResetEmail()">Reset Password</button>
           <p *ngIf="resetPassword" class="text-success">Check your email to reset password!</p>                        
           <p class="forgot">Forgot Password?</p>
           <button [disabled]="!(logStatusValidity|push)" type="submit" class="button button-block">Sign In</button>
         </form>
-        <button id="kaydet" type="button" class="butto ripple button-outline" (click)="triedGoogleLogin()">Signin with Google</button>
+        <button id="kaydet" type="button" class="butto ripple button-outline kaydet" (click)="triedGoogleLogin()">Signin with Google</button>
     </section>
     </article><!-- tab-content -->
   </div> <!-- /form -->

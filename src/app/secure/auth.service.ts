@@ -121,7 +121,7 @@ export class AuthService implements OnInit, OnDestroy {
         handleCodeInApp: true, // This must be true.
       })
       .then(() => console.log('Sent Password Reset Email!'))
-      .catch((error: any) => console.log(error));
+      .catch((error: any) => Promise.reject(error));
   }
   async confirmPasswordReset(actionCode: string, newPassword: string) {
     const asd = await import('./FirebaseActions');
@@ -154,7 +154,7 @@ export class AuthService implements OnInit, OnDestroy {
       });
   }
   // Sign in with email/password
-  async signIn(email: string, password: string) {
+  async signIn(email: string, password: string): Promise<void| Error> {
     const asd = await import('./FirebaseActions');
     return await asd
       .signInWithEmailAndPassword(this.auth, email, password)
@@ -163,6 +163,7 @@ export class AuthService implements OnInit, OnDestroy {
       })
       .catch((error) => {
         window.alert(error.message);
+        return Promise.reject(error);
       });
   }
   async signOut() {
