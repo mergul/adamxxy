@@ -4,6 +4,7 @@ import {
   Component,
   OnDestroy,
   OnInit,
+  Renderer2,
 } from '@angular/core';
 import { Subject } from 'rxjs';
 import { filter, map, takeUntil } from 'rxjs/operators';
@@ -29,6 +30,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     private reactiveService: ReactiveStreamsService,
     public ui: LoaderService,
     public newsService: NewsService,
+    private renderer: Renderer2,
     private winRef: WindowRef,
     private router: Router
   ) {
@@ -72,6 +74,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
           }
         }
       });
+     // this.ngAfterViewInit();
   }
   ngOnInit(): void {}
   ngOnDestroy(): void {
@@ -79,7 +82,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     this.destroy.complete();
   }
   ngAfterViewInit(): void {
-    this.winRef.nativeWindow.onload = () => {
+      this.renderer.listen(this.winRef.nativeWindow, 'load', () => {
       if (!this.reactiveService.statusOfNewsSource()) {
         this.reactiveService.getNewsStream(
           this.reactiveService.random,
@@ -122,6 +125,6 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
             )
           )
         );
-    };
+    });
   }
 }

@@ -34,10 +34,10 @@ const routes: Routes = [
     path: 'upload', loadChildren: () =>
       import('./multi-files-upload/multi-files-upload.module').then(m => m.MultiFilesUploadModule)
   },
-  // {
-  //   path: 'admin', loadChildren: () =>
-  //     import('./admin/admin.module').then(m => m.AdminModule)
-  // },
+  {
+    path: 'admin', loadChildren: () =>
+      import('./admin/admin.module').then(m => m.AdminModule)
+  },
 ];
 
 @NgModule({
