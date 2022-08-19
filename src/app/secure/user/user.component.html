@@ -1,0 +1,29 @@
+<main id="user-profile">
+  <section class="top">
+    <figure class="figure">
+      <img class="image-bg" src="assets/back-img.jpeg" width="1351px" height="225px" alt="asel" />
+      <img class="image-profile" src="assets/profile-img.jpeg" width="192px" height="192px" alt="masel" />
+    </figure>
+  </section>
+  <section class="paths">
+    <ol>
+      <li *ngFor="let item of newsService.getBreadcrumbList()|push;let i=index;">
+        <a [routerLink]="[i==0?'../../'+item:(i==1?'../'+item:'./'+item)]"> --> {{item}}</a>
+      </li>
+    </ol>
+  </section>
+  <section class="side">
+    <article class="resume">
+      <h1>Özgeçmiş</h1>
+      <p>Burada dünyaya geldi. Bu dünyada yetişti.</p>
+    </article>
+    <button [routerLink]="['contents']" [class.active]="(userService.viewState|push)===0">içerikler</button>
+    <button [routerLink]="['followee']" [class.active]="(userService.viewState|push)===1">izlenen kişiler</button>
+    <button [routerLink]="['followco']" [class.active]="(userService.viewState|push)===2">izlenen konular</button>
+    <button [routerLink]="['followers']" [class.active]="(userService.viewState|push)===3">takipçiler</button>
+    <button [routerLink]="['user-edit']" [class.active]="(userService.viewState|push)===4">güncelle</button>
+  </section>
+  <section class="center">
+    <router-outlet></router-outlet>
+  </section>
+</main>

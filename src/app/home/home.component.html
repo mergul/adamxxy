@@ -1,0 +1,66 @@
+<main id="home" appScroll (onScroll)="track($event)">
+  <article class="article-top">
+    <section class="fi">
+      <figure class="figure">
+        <img class="figure-img" src="assets/abc.jpeg" width="718px" height="300px" alt="hu" />
+        <figcaption>Üyelik Çok Avantajlı</figcaption>
+      </figure>
+    </section>
+    <section class="prf">
+      <h1 class="article-title">Üyelik Avantajlarından Yararlanın!</h1>
+      <p class="article-prf">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+        ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+        aliquip ex ea commodo consequat.<br>
+        <button class="butto ripple button-outline ">Katıl</button>
+      </p>
+    </section>
+  </article>
+  <article class="recommend">
+    <div class="head">
+      <h1>Adam Recommends</h1>
+      <p>Talks recommended just for you, delivered to your inbox</p>
+    </div>
+    <h2 class="quest">What interests you?</h2>
+    <div class="content">
+      <label *ngFor="let it of list|push; let i=index;" [for]="'tag'+i">
+        <input type="checkbox" [id]="'tag'+i" value="tag1">etiket1</label>
+    </div>
+  </article>
+  <article class="container">
+    <h2>En Yeniler</h2>
+    <app-posts-list *ngIf="percentage>10" [postsList]="newsService.newsStreamList$" [size]="3" [name]="'image'"></app-posts-list>
+  </article>
+  <article class="article-mi">
+    <section class="prf">
+      <h1 class="article-title">Üyelik Avantajlarından Yararlanın!</h1>
+      <p class="article-prf">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+        ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+        aliquip ex ea commodo consequat.<br>
+        <button class="butto ripple button-outline ">Katıl</button>
+      </p>
+    </section>
+    <section class="fi">
+      <figure class="figure">
+        <img class="figure-img" src="assets/abc.jpeg" width="718px" height="300px" alt="hu" />
+        <figcaption>Üyelik Çok Avantajlı</figcaption>
+      </figure>
+    </section>
+  </article>
+  <article class="container micon" id="icon-carousel">
+    <h2>En Çok İzlenenler</h2>
+    <app-posts-list *ngIf="percentage>50" [postsList]="newsService.newsStreamList$" [size]="6" [name]="'myimage'"></app-posts-list>
+  </article>
+  <article class="container micon" id="icon-carousel1">
+    <h2>İtikad</h2>
+    <app-posts-list *ngIf="percentage>100" [postsList]="newsService.newsStreamList$" [size]="6" [name]="'yimage'"></app-posts-list>
+  </article>
+  <article class="container micon" id="icon-carousel2">
+    <h2>Kelam</h2>
+    <app-posts-list *ngIf="percentage>150" [postsList]="newsService.newsStreamList$" [size]="6" [name]="'mimage'"></app-posts-list>
+  </article>
+  <article class="container micon" id="icon-carousel3">
+    <h2>Fıkıh</h2>
+    <app-posts-list *ngIf="percentage>200" [postsList]="newsService.newsStreamList$" [size]="6" [name]="'ymimage'"></app-posts-list>
+  </article>
+</main>
+<router-outlet></router-outlet>

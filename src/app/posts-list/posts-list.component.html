@@ -1,0 +1,14 @@
+<div class="carousel" id="car_on">
+    <ul class="carousel__viewport" #carousel id="car_one" appScroll (onScroll)="track($event)">
+      <li *ngFor="let post of postsList$ | push; trackBy: byId; let i=index;" [class]="size<=3?'carousel__slide':'my__carousel__slide'" [id]="name+'-'+(i+1)">
+        <figure class="figure-carousel" [class.mifig]="size===6" [routerLink]="[post.newsId]">
+          <img class="gallery__img" [src]="'assets/medium-' + (post.thumb ? post.thumb : 'bae.jpeg')" width="480px" height="363px" alt="Yosemite{{i+1}}" />
+          <figcaption>Yosemite{{i+1}}</figcaption>
+        </figure>
+        <a (click)="onNav($event, name + '-', i+1, false, size)" class="carousel__prev" skipLocationChange:true>Go to last
+          slide</a>
+        <a (click)="onNav($event, name + '-', i+1, true, size)" class="carousel__next" skipLocationChange:true>Go to next
+          slide</a>
+      </li>
+    </ul>
+  </div>

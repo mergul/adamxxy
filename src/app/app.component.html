@@ -1,0 +1,8 @@
+<app-header></app-header> <!-- (logoutChange)="receiveMessage($event)" -->
+<div *ngIf="!(ui.isLoading|push); else loading" class="content">
+  <router-outlet></router-outlet>
+</div>
+<ng-template #loading>
+  <div id="spinner" class="loadingspinner"></div>
+</ng-template>
+<app-footer></app-footer>

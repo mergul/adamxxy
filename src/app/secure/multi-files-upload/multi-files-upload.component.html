@@ -1,0 +1,54 @@
+<div id="open-modal" class="modal-window">
+    <div>
+        <a routerLink="/home" title="Close" class="modal-close">Close</a>
+        <div class="modal-guts">
+<section class="upload">
+    <form [formGroup]="documentGrp" (ngSubmit)="OnSubmit(documentGrp.value)" style="margin-top: 0px;">
+        <div class="nock">
+            <div>
+                <button #startTopButton type="button" id="micro1" [disabled]="startTopButtonDisabled"
+                    class="butto ripple button-outline" (click)="startCamera($event)">Start Microphone</button>
+            </div>
+            <div class="field-wrap">
+                <label class="padded">Topic: Leave any comment</label>
+                <textarea matInput #topBox formControlName="news_topic" id="news_topic"
+                    class="md-textarea news_topic form-control" rows="4" placeholder="Enter document topics"
+                    [value]="(this.speechService.firstSpeechState|push)?.transcript">
+                                            </textarea>
+            </div>
+        </div>
+
+        <div class="nock">
+            <div>
+                <button #startDescButton type="button" id="micro2" [disabled]="startDescButtonDisabled"
+                    class="butto ripple button-outline" (click)="startCamera($event)">Start Microphone</button>
+            </div>
+            <div class="field-wrap">
+                <label class="padded">Description: Leave any comment</label>
+                <textarea matInput #textBox formControlName="news_description" id="news_description"
+                    class="md-textarea news_description form-control" rows="7" placeholder="Enter document Category"
+                    [value]="(this.speechService.segSpeechState|push)?.transcript">
+                                            </textarea>
+            </div>
+        </div>
+
+        <div class="box">
+            <div class="field-wrap">
+                <label for="file-input">Choose Files</label>
+                <input hidden (change)="fileSelectionEvents($event,0)" #fileInput type="file" class="custom-file-input"
+                    id="file-input" multiple>
+            </div>
+        </div>
+        <div class="box-footer" style="align-content: center; text-align: center; padding: 20px">
+            <button id="micro3" [disabled]="!(logStatusValidity|push)" type="submit"
+                class="butto ripple button-outline" style="width: 50%">Yayımla</button>
+        </div>
+    </form>
+    <ng-container *ngIf="this.multifilesService.getUrls()|push as dd">
+        <app-files-thumbnails *ngIf="dd.length>0" [thumbs]="dd" style="display: table">
+        </app-files-thumbnails>
+    </ng-container>
+</section>
+        </div>      
+    </div>
+</div>

@@ -1,0 +1,16 @@
+<section class="top">
+    <figure class="figure">
+        <img align="center" class="image-bg" src="assets/back-img.jpeg" width="321px" height="225px" alt="asel" />
+        <img align="left" class="image-profile" src="assets/profile-img.jpeg" width="192px" height="192px" alt="asel" />
+    </figure>
+    <div class="profile-info">
+        <h1 class="title">
+            <span class="name">
+                {{userName}}
+            </span>
+        </h1>
+        <div class="follow">
+            <button #followButton class="butto ripple button-outline" (click)="manageFollow()">{{!_follow?'Takip Et':'Takibi Kes'}}</button>
+        </div>
+    </div>
+</section>

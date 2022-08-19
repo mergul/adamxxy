@@ -1,0 +1,124 @@
+  #home{
+    padding: 0 .5rem;
+  }
+  .micon{
+    height: calc(260*(100vw/1503)) !important;
+    margin-top: 20px;
+  }
+  .container{
+    position: relative;
+    height: calc(320*(100vw/1503));
+    padding: 0;
+    margin: 1rem 0;
+  }
+  h2{
+    margin: 2px;
+  }
+  article.article-top, article.article-mi{
+    position: relative;
+    background-color: #f6f6f68c;
+    padding: .5rem 0 0;
+  //  margin-bottom: 1rem;
+    display: grid;
+    gap: .5rem;
+    grid-template-columns: repeat(2, 1fr);
+    section.fi{
+      display: flex;
+      place-items: center;
+    }
+  }
+ .figure {
+    position: relative;
+    img {
+      height: calc(300*(100vw/1503));
+      width: 100%;
+      object-fit: cover;
+    }
+    figcaption{
+      background: rgba(0, 9, 0, 0.4);
+      color: #fff;
+      bottom: 5px;
+      width: calc(100% - 8px);
+    }
+  }
+  figcaption {
+    position: absolute;
+    padding: 4px;
+    text-align: center;
+    height: 25%;
+  }
+  .article-title{
+    text-align: center;
+    font-size: calc(6px + 20*(100vw / 1600)) !important;
+  }
+  .article-prf{
+    margin: .5rem auto;
+    font-size: calc(6px + 16*(100vw / 1600)) !important;
+    text-align: center;
+    button{
+      height: calc(18px + 30*(100vw / 1500)) !important;
+    }
+  }
+  article.recommend{
+    margin: .5rem 0 0;
+    padding: 1.75rem 0.5rem 1rem;
+    background-color: #7700b3;
+    color: ghostwhite;
+    .content{
+      display: flex;
+      gap: .5rem;
+      flex-wrap: wrap;
+      label{
+        background-color: transparent;
+        border: 1px solid ghostwhite;
+        border-radius: 2rem;
+        padding: .25rem .5rem;
+        cursor: pointer;
+      }  
+      input{ 
+        display: none;
+      }   
+      label:hover{    
+        background-color: #fff;    
+        color: #7700b3    
+      }  
+    }  
+    .head{
+      text-align: center;
+      p{
+        padding: .5rem;
+      }
+    }
+    h2.quest{
+      text-align: center;
+      margin: 1rem;
+      font-size: calc(.75rem + 10*(100vw/1500)) !important; 
+    }
+  }
+  @media screen and (max-width: 800px) {
+    .container{
+      height: calc(420*(100vw/1503)) !important;
+    }
+    .figure{
+      img {
+        height: calc(600*(100vw/1503));
+      }
+    }
+    .article-title{
+      font-size: calc(6px + 30*(100vw / 1600)) !important;
+    }
+    .article-prf{
+      font-size: calc(6px + 26*(100vw / 1600)) !important;
+      button{
+        height: calc(18px + 50*(100vw / 1500)) !important;
+      }
+    }
+    .article-top{
+      grid-template-columns: 1fr !important;
+      grid-template-rows: 1fr auto;
+    }
+    .article-mi{
+      grid-template-columns: 1fr !important;
+      grid-template-rows: auto 1fr;
+    }
+  }

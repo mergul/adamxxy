@@ -1,0 +1,25 @@
+<ng-container *ngIf="(newsService.meStreamList$|push) as mylist">
+<ng-container *ngIf="mylist.length>0; else sloading" >
+<article class="article-top">
+    <ul>
+        <li *ngFor="let post of mylist; trackBy: byId">
+            <a [routerLink]="[post.newsId]">
+                <section class="fi">
+                    <figure class="figure">
+                        <img class="figure-img" [src]="'assets/medium-' + (post.thumb ? post.thumb : 'bae.jpeg')" width="250px" height="154px" alt="hu" />
+                        <figcaption>Üyelik Çok Avantajlı</figcaption>
+                    </figure>
+                </section>
+                <section class="prf">
+                    <h1 class="article-title">Üyelik Avantajlarından Yararlanın!</h1>
+                    <p class="article-prf">Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
+                    </p>
+                </section>
+            </a>
+        </li>
+    </ul>
+</article>
+</ng-container>
+</ng-container>
+<ng-template #sloading><h1>Loading...</h1></ng-template>
+<router-outlet></router-outlet>

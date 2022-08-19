@@ -1,0 +1,59 @@
+<nav class="sidebar" #sidebar>
+    <ul class="nav-list">
+        <li>
+            <i class='bx bx-search' #search></i>
+            <input type="text" placeholder="Search...">
+        </li>
+        <li>
+            <a routerLink="admin-main">
+                <i class='bx bx-grid-alt'></i>
+                <span class="links_name">Dashboard</span>
+            </a>
+        </li>
+        <li>
+            <a routerLink="admin-users">
+                <i class='bx bx-user'></i>
+                <span class="links_name">Users</span>
+            </a>
+        </li>
+        <li>
+            <a routerLink="admin-views">
+                <i class='bx bx-chat'></i>
+                <span class="links_name">Pageviews</span>
+            </a>
+        </li>
+        <li>
+            <a routerLink="admin-aside">
+                <i class='bx bx-pie-chart-alt-2'></i>
+                <span class="links_name">Analytics</span>
+            </a>
+        </li>
+        <li>
+            <a routerLink="">
+                <i class='bx bx-folder'></i>
+                <span class="links_name">File Manager</span>
+            </a>
+        </li>
+        <li>
+            <a routerLink="">
+                <i class='bx bx-cart-alt'></i>
+                <span class="links_name">Order</span>
+            </a>
+        </li>
+        <li>
+            <a routerLink="">
+                <i class='bx bx-heart'></i>
+                <span class="links_name">Saved</span>
+            </a>
+        </li>
+        <li>
+            <a routerLink="">
+                <i class='bx bx-cog'></i>
+                <span class="links_name">Setting</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+<section class="home-section">
+    <router-outlet></router-outlet>
+</section>

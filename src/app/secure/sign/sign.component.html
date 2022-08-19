@@ -1,0 +1,76 @@
+<div class="form">
+    <ul class="tab-group">
+      <li class="tab" [class.active]="viewMode|push" rel="signup"
+      (click)="onClick(true)">Sign Up</li>
+      <li class="tab" [class.active]="!(viewMode|push)" rel="signin"
+      (click)="onClick(false)">Sign In</li>
+    </ul>
+    <article class="tab-content" [ngSwitch]="viewMode|push">
+        <section id="signup" class="" [class.active]="viewMode|push" *ngSwitchCase="true">
+        <h1>Sign Up for Free</h1>
+        <form (ngSubmit)="onSubmit(registerForm.value)" [formGroup]="registerForm">
+          <div class="top-row">
+            <div class="field-wrap">
+              <input formControlName="name" id="name" type="text" placeholder=" " required autocomplete="off" />
+              <label for="name">
+                First Name<span class="req">*</span>
+              </label>
+            </div>
+            <div class="field-wrap">
+              <input formControlName="lastname" id="lastname" type="text" placeholder=" " required autocomplete="off" />
+              <label for="lastname">
+                Last Name<span class="req">*</span>
+              </label>
+            </div>
+          </div> 
+          <div class="field-wrap">
+            <input formControlName="email" id="email" type="email" placeholder=" " required autocomplete="off" />
+            <label for="email">
+              {{!checkError(this.emailCont)?'Email Address':emailCont.errors&&stringifyError(this.emailCont.errors)}}<span class="req">*</span>
+            </label>
+          </div> 
+          <div class="field-wrap">
+            <input formControlName="password" id="password" type="password" placeholder="Set Password" required autocomplete="off" />
+            <label for="password">
+              {{!checkError(this.passCont)?'Set Password':this.passCont.errors&&stringifyError(passCont.errors)}}<span class="req">*</span>
+            </label>
+          </div>
+          <div class="field-wrap">
+            <input formControlName="password2" id="password2" type="password" placeholder=" Confirm Password" required autocomplete="off" />
+            <label for="password2">
+              Confirm Password<span class="req">*</span>
+            </label>
+          </div>
+          <div class='error' *ngIf="registerForm.controls['password2'].valueChanges|push">
+            <div class="alert-danger errormessageadduser" *ngIf="mismatchPasswordsError|push">Passwords do not
+              match</div>
+          </div>
+          <button [disabled]="!(regStatusValidity|push)" type="submit" class="button button-block">Get Started</button>
+        </form>
+    </section>
+    <section id="signin" class="signin" [class.active]="!(viewMode|push)" *ngSwitchCase="false">
+        <h1>Welcome Back!</h1>
+        <form (ngSubmit)="onSubmit(loginForm.value)" [formGroup]="loginForm">
+          <div class="field-wrap">
+            <input formControlName="email" id="email" type="email" placeholder=" " required autocomplete="off" />
+            <label for="email">
+              {{!checkError(this.emailCont)?'Email Address':emailCont.errors&&stringifyError(this.emailCont.errors)}}<span class="req">*</span>
+            </label>
+          </div>
+          <div class="field-wrap">
+            <input formControlName="password" id="password" type="password" placeholder=" " required autocomplete="off" />
+            <label for="password">
+              Password<span class="req">*</span>
+            </label>
+          </div>
+          <label *ngIf="!!error.message" class="error">{{error.message}}</label>
+          <button *ngIf="!resetPassword&&error.message" 
+            class="butto ripple button-outline kaydet" (click)="sendResetEmail()">Reset Password</button>
+          <p *ngIf="resetPassword" class="text-success">Check your email to reset password!</p>                        
+          <p class="forgot">Forgot Password?</p>
+          <button [disabled]="!(logStatusValidity|push)" type="submit" class="button button-block">Sign In</button>
+        </form>
+        <button id="kaydet" type="button" class="butto ripple button-outline kaydet" (click)="triedGoogleLogin()">Signin with Google</button>
+    </section>
+    </article><!-- tab-content -->
+  </div> <!-- /form -->
