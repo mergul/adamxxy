@@ -1,234 +1,260 @@
 <div id="open-modal" class="modal-window">
     <div>
-      <a routerLink="../" title="Close" class="modal-close">Close</a>
-      <div class="modal-guts">
-<main id="details">
-    <article *ngIf="(_videoUrl|push) as url" class="article-top">
-        <figure class="figure">
-            <video controls poster="assets/bunny.jpg" width="300px" height="200px">
-                <source [src]="url" type="video/mp4" />
-            </video>
-            <figcaption>Üyelik Çok Avantajlı</figcaption>
-        </figure>
-    </article>
-    <article class="article-se">
-        <h1>Watch next</h1>
-        <section  *ngIf="(_videoUrl|push) as url" class="myel" routerLink="/details">
-            <p>Toggle switch</p>
-            <figure class="figure">
-                <video controls poster="assets/bunny.jpg" width="400px" height="280px">
-                    <source [src]="url" type="video/mp4" />
-                </video>
-            </figure>
-        </section>
-        <section  *ngIf="(_videoUrl|push) as url" class="myel" routerLink="/details">
-            <p>Toggle switch</p>
-            <figure class="figure">
-                <video controls poster="assets/bunny.jpg" width="400px" height="280px">
-                    <source [src]="url" type="video/mp4" />
-                </video>
-            </figure>
-        </section>
-        <section  *ngIf="(_videoUrl|push) as url" class="myel" routerLink="/details">
-            <p>Toggle switch</p>
-            <figure class="figure">
-                <video controls poster="assets/bunny.jpg" width="400px" height="280px">
-                    <source [src]="url" type="video/mp4" />
-                </video>
-            </figure>
-        </section>
-        <section  *ngIf="(_videoUrl|push) as url" class="myel" routerLink="/details">
-            <p>Toggle switch</p>
-            <figure class="figure">
-                <video controls poster="assets/bunny.jpg" width="400px" height="280px">
-                    <source [src]="url" type="video/mp4" />
-                </video>
-            </figure>
-        </section>
-        <section  *ngIf="(_videoUrl|push) as url" class="myel" routerLink="/details">
-            <p>Toggle switch</p>
-            <figure class="figure">
-                <video controls poster="assets/bunny.jpg" width="400px" height="280px">
-                    <source [src]="url" type="video/mp4" />
-                </video>
-            </figure>
-        </section>
-    </article>
-    <article class="article-th">
-        <div class="tab-slider--nav">
-            <ul class="tab-slider--tabs">
-                <li class="tab-slider--trigger" [class.active]="viewMode == 'tab1'" rel="tab1"
-                    (click)="onClick('tab1')">Details</li>
-                <li class="tab-slider--trigger" [class.active]="viewMode == 'tab2'" rel="tab2"
-                    (click)="onClick('tab2')">Reading List</li>
-                <li class="tab-slider--trigger" [class.active]="viewMode == 'tab3'" rel="tab3"
-                    (click)="onClick('tab3')">Footnotes</li>
-            </ul>
-        </div>
-    </article>
-    <article class="article-fo" [ngSwitch]="viewMode">
-        <section id="tab1" class="tab-slider--body" [class.active]="viewMode == 'tab1'" *ngSwitchCase="'tab1'">
-            <div class="tab-fo">
-                <section class="tex">
-                    <p>The pandemic spurred an unprecedented reclamation of urban space, ushering in a seemingly bygone
-                        era
-                        of pedestrian pastimes, as cars were sidelined in favor of citizens. Highlighting examples from
-                        across the United States, environmental designer Kevin J. Krizek reflects on how temporary
-                        shifts --
-                        like transforming streets into places for dining, recreation and community -- can become
-                        permanent
-                        fixtures that make for more livable and sustainable cities.</p>
-                    <!-- <p><span><span><span>This talk was presented to a local audience at TEDxMileHigh, an independent event.
+        <a routerLink="../" title="Close" class="modal-close">Close</a>
+        <div class="modal-guts">
+            <main id="details">
+                <article *ngIf="(_videoUrl|push) as url" class="article-top">
+                    <figure class="figure">
+                        <video controls poster="assets/bunny.jpg" width="300px" height="200px">
+                            <source [src]="url" type="video/mp4" />
+                        </video>
+                        <figcaption>Üyelik Çok Avantajlı</figcaption>
+                    </figure>
+                </article>
+                <article class="article-se">
+                    <h1>Watch next</h1>
+                    <section *ngIf="(_videoUrl|push) as url" class="myel" routerLink="/details">
+                        <p>Toggle switch</p>
+                        <figure class="figure">
+                            <video controls poster="assets/bunny.jpg" width="400px" height="280px">
+                                <source [src]="url" type="video/mp4" />
+                            </video>
+                        </figure>
+                    </section>
+                    <section *ngIf="(_videoUrl|push) as url" class="myel" routerLink="/details">
+                        <p>Toggle switch</p>
+                        <figure class="figure">
+                            <video controls poster="assets/bunny.jpg" width="400px" height="280px">
+                                <source [src]="url" type="video/mp4" />
+                            </video>
+                        </figure>
+                    </section>
+                    <section *ngIf="(_videoUrl|push) as url" class="myel" routerLink="/details">
+                        <p>Toggle switch</p>
+                        <figure class="figure">
+                            <video controls poster="assets/bunny.jpg" width="400px" height="280px">
+                                <source [src]="url" type="video/mp4" />
+                            </video>
+                        </figure>
+                    </section>
+                    <section *ngIf="(_videoUrl|push) as url" class="myel" routerLink="/details">
+                        <p>Toggle switch</p>
+                        <figure class="figure">
+                            <video controls poster="assets/bunny.jpg" width="400px" height="280px">
+                                <source [src]="url" type="video/mp4" />
+                            </video>
+                        </figure>
+                    </section>
+                    <section *ngIf="(_videoUrl|push) as url" class="myel" routerLink="/details">
+                        <p>Toggle switch</p>
+                        <figure class="figure">
+                            <video controls poster="assets/bunny.jpg" width="400px" height="280px">
+                                <source [src]="url" type="video/mp4" />
+                            </video>
+                        </figure>
+                    </section>
+                </article>
+                <article class="article-th">
+                    <div class="tab-slider--nav">
+                        <ul class="tab-slider--tabs">
+                            <li class="tab-slider--trigger" [class.active]="viewMode == 'tab1'" rel="tab1"
+                                (click)="onClick('tab1')">Details</li>
+                            <li class="tab-slider--trigger" [class.active]="viewMode == 'tab2'" rel="tab2"
+                                (click)="onClick('tab2')">Reading List</li>
+                            <li class="tab-slider--trigger" [class.active]="viewMode == 'tab3'" rel="tab3"
+                                (click)="onClick('tab3')">Footnotes</li>
+                        </ul>
+                    </div>
+                </article>
+                <article class="article-fo" [ngSwitch]="viewMode">
+                    <section id="tab1" class="tab-slider--body" [class.active]="viewMode == 'tab1'"
+                        *ngSwitchCase="'tab1'">
+                        <div class="tab-fo">
+                            <section class="tex">
+                                <p>The pandemic spurred an unprecedented reclamation of urban space, ushering in a
+                                    seemingly bygone
+                                    era
+                                    of pedestrian pastimes, as cars were sidelined in favor of citizens. Highlighting
+                                    examples from
+                                    across the United States, environmental designer Kevin J. Krizek reflects on how
+                                    temporary
+                                    shifts --
+                                    like transforming streets into places for dining, recreation and community -- can
+                                    become
+                                    permanent
+                                    fixtures that make for more livable and sustainable cities.</p>
+                                <!-- <p><span><span><span>This talk was presented to a local audience at TEDxMileHigh, an independent event.
                                 TED's editors chose to feature it for you.</span></span></span></p> -->
-                </section>
-                <section class="speaker">
-                    <h2>about the speaker</h2>
-                    <a href="https://www.ted.com/speakers/kevin_j_krizek">
-                        <div class="author_in"></div>
-                        <div class="tex">
-                            <div class="author_wrap">
-                                <p class="author_name">Kevin J. Krizek . </p>
-                                <p>Environmental designer</p>
-                            </div>
-                            <p>Kevin J. Krizek has been examining the environmental, social and health
-                                impacts of our urban transportation choices for twenty-five years.</p>
+                            </section>
+                            <section class="speaker">
+                                <h2>about the speaker</h2>
+                                <a href="https://www.ted.com/speakers/kevin_j_krizek">
+                                    <div class="author_in"></div>
+                                    <div class="tex">
+                                        <div class="author_wrap">
+                                            <p class="author_name">Kevin J. Krizek . </p>
+                                            <p>Environmental designer</p>
+                                        </div>
+                                        <p>Kevin J. Krizek has been examining the environmental, social and health
+                                            impacts of our urban transportation choices for twenty-five years.</p>
+                                    </div>
+                                </a>
+                            </section>
+                            <section class="actions">
+                                <h2>Take Action</h2>
+                                <div class="participate">
+                                    <div class="par">
+                                        <p class="part">participate</p>
+                                        <p><strong>Call and vote</strong> in council members who demonstrate a
+                                            progressive
+                                            mindset about transport.</p>
+                                    </div>
+                                    <div class="bu">
+                                        <button class="butto ripple button-outline ">Learn more →</button>
+                                    </div>
+                                </div>
+                            </section>
+                            <section class="about">
+                                <h2>About TEDx</h2>
+                                <div class="mad">
+                                    <p>TEDx was created in the spirit of TED’s mission, “ideas worth spreading.” It
+                                        supports
+                                        independent organizers who want to create a TED-like event in their own
+                                        community.
+                                    </p>
+                                    <a rel="noopener noreferrer" target="_blank"
+                                        href="https://www.ted.com/tedx/events">Find
+                                        a TEDx event near you →</a>
+                                </div>
+                            </section>
                         </div>
-                    </a>
-                </section>
-                <section class="actions">
-                    <h2>Take Action</h2>
-                    <div class="participate">
-                        <div class="par">
-                            <p class="part">participate</p>
-                            <p><strong>Call and vote</strong> in council members who demonstrate a progressive
-                                mindset about transport.</p>
-                        </div>
-                        <div class="bu">
-                            <button class="butto ripple button-outline ">Learn more →</button>
-                        </div>
-                    </div>
-                </section>
-                <section class="about">
-                    <h2>About TEDx</h2>
-                    <div class="mad">
-                        <p>TEDx was created in the spirit of TED’s mission, “ideas worth spreading.” It supports
-                            independent organizers who want to create a TED-like event in their own community.
-                        </p>
-                        <a rel="noopener noreferrer" target="_blank" href="https://www.ted.com/tedx/events">Find
-                            a TEDx event near you →</a>
-                    </div>
-                </section>
-            </div>
 
-            <div class="tab-mo">
-                <div class="tab-moin1"><span class="top num">631,389</span> views</div>
-                <div class="tab-moin2"><span class="top">TEDx Mile High&nbsp;</span><span>| March 2021</span></div>
-                <div class="tab-moin3">
-                    <p>Related tags</p>
-                    <ul>
-                        <li><a href="https://www.ted.com/topics/cities">cities</a></li>
-                        <li><a href="https://www.ted.com/topics/pandemic">pandemi</a></li>
-                        <li><a href="https://www.ted.com/topics/coronavirus">covid</a></li>
-                    </ul>
-                </div>
-                <div class="tab-moin4"></div>
-            </div>
-        </section>
-        <section id="tab2" class="tab-slider--body" [class.active]="viewMode == 'tab2'" *ngSwitchCase="'tab2'">
-            <div class="tab-la">
-                <p>More resources curated by Kevin J. Krizek</p>
-                <a href="https://www.ted.com/speakers/kevin_j_krizek">
-                    <div class="author_in"></div>
-                </a>
-            </div>
-            <div class="tab-ma">
-                <section class="article-in">
-                    <h2>Article</h2>
-                    <a href="https://www.ite.org/pub/?id=2B219A8E-A7A9-D2CC-F135-DD7475DAE094">"Bring Back the Sewer
-                        Socialists!"</a>
-                    <p>Jordan Fraade<br>
-                        <em>Slate Magazine</em>, 2021
-                    </p>
-                    <p>Taking care of garbage in a city shouldn’t be a political issue. Neither should transport.</p>
-                </section>
-                <section class="article-in">
-                    <h2>Article</h2>
-                    <a href="https://www.ite.org/pub/?id=2B219A8E-A7A9-D2CC-F135-DD7475DAE094">"Bring Back the Sewer
-                        Socialists!"</a>
-                    <p>Jordan Fraade<br>
-                        <em>Slate Magazine</em>, 2021
-                    </p>
-                    <p>Taking care of garbage in a city shouldn’t be a political issue. Neither should transport.</p>
-                </section>
-                <section class="article-in">
-                    <h2>Article</h2>
-                    <a href="https://www.ite.org/pub/?id=2B219A8E-A7A9-D2CC-F135-DD7475DAE094">"Bring Back the Sewer
-                        Socialists!"</a>
-                    <p>Jordan Fraade<br>
-                        <em>Slate Magazine</em>, 2021
-                    </p>
-                    <p>Taking care of garbage in a city shouldn’t be a political issue. Neither should transport.</p>
-                </section>
-                <section class="article-in">
-                    <h2>Article</h2>
-                    <a href="https://www.ite.org/pub/?id=2B219A8E-A7A9-D2CC-F135-DD7475DAE094">"Bring Back the Sewer
-                        Socialists!"</a>
-                    <p>Jordan Fraade<br>
-                        <em>Slate Magazine</em>, 2021
-                    </p>
-                    <p>Taking care of garbage in a city shouldn’t be a political issue. Neither should transport.</p>
-                </section>
-                <section class="article-in">
-                    <h2>Article</h2>
-                    <a href="https://www.ite.org/pub/?id=2B219A8E-A7A9-D2CC-F135-DD7475DAE094">"Bring Back the Sewer
-                        Socialists!"</a>
-                    <p>Jordan Fraade<br>
-                        <em>Slate Magazine</em>, 2021
-                    </p>
-                    <p>Taking care of garbage in a city shouldn’t be a political issue. Neither should transport.</p>
-                </section>
-            </div>
-        </section>
-        <section id="tab3" class="tab-slider--body" [class.active]="viewMode == 'tab3'" *ngSwitchCase="'tab3'">
-            <div class="tab-na">
-                <p>Relevant notes and citations provided to TED by Kevin J. Krizek</p>
-                <a href="https://www.ted.com/speakers/kevin_j_krizek">
-                    <div class="author_in"></div>
-                </a>
-            </div>
-            <div class="tab-pa">
-                <section class="article-in">
-                    <div>“Now, one third of all the land in cities is set up for cars.”</div>
-                    <br>In some U.S. cities, <a href="https://par.nsf.gov/servlets/purl/10200589">like Phoenix,
-                        Arizona</a>, parking lots take up <a
-                        href="https://www.nytimes.com/2012/01/08/arts/design/taking-parking-lots-seriously-as-public-spaces.html">one-third
-                        of all land area</a>.
-                </section>
-                <section class="article-in">
-                    <div>“Now, one third of all the land in cities is set up for cars.”</div>
-                    <br>In some U.S. cities, <a href="https://par.nsf.gov/servlets/purl/10200589">like Phoenix,
-                        Arizona</a>, parking lots take up <a
-                        href="https://www.nytimes.com/2012/01/08/arts/design/taking-parking-lots-seriously-as-public-spaces.html">one-third
-                        of all land area</a>.
-                </section>
-                <section class="article-in">
-                    <div>“Now, one third of all the land in cities is set up for cars.”</div>
-                    <br>In some U.S. cities, <a href="https://par.nsf.gov/servlets/purl/10200589">like Phoenix,
-                        Arizona</a>, parking lots take up <a
-                        href="https://www.nytimes.com/2012/01/08/arts/design/taking-parking-lots-seriously-as-public-spaces.html">one-third
-                        of all land area</a>.
-                </section>
-                <section class="article-in">
-                    <div>“Now, one third of all the land in cities is set up for cars.”</div>
-                    <br>In some U.S. cities, <a href="https://par.nsf.gov/servlets/purl/10200589">like Phoenix,
-                        Arizona</a>, parking lots take up <a
-                        href="https://www.nytimes.com/2012/01/08/arts/design/taking-parking-lots-seriously-as-public-spaces.html">one-third
-                        of all land area</a>.
-                </section>
-            </div>
-        </section>
-    </article>
-</main>
-</div>
-</div>
+                        <div class="tab-mo">
+                            <div class="tab-moin1"><span class="top num">631,389</span> views</div>
+                            <div class="tab-moin2"><span class="top">TEDx Mile High&nbsp;</span><span>| March
+                                    2021</span></div>
+                            <div class="tab-moin3">
+                                <p>Related tags</p>
+                                <ul>
+                                    <li><a href="https://www.ted.com/topics/cities">cities</a></li>
+                                    <li><a href="https://www.ted.com/topics/pandemic">pandemi</a></li>
+                                    <li><a href="https://www.ted.com/topics/coronavirus">covid</a></li>
+                                </ul>
+                            </div>
+                            <div class="tab-moin4"></div>
+                        </div>
+                    </section>
+                    <section id="tab2" class="tab-slider--body" [class.active]="viewMode == 'tab2'"
+                        *ngSwitchCase="'tab2'">
+                        <div class="tab-la">
+                            <p>More resources curated by Kevin J. Krizek</p>
+                            <a href="https://www.ted.com/speakers/kevin_j_krizek">
+                                <div class="author_in"></div>
+                            </a>
+                        </div>
+                        <div class="tab-ma">
+                            <section class="article-in">
+                                <h2>Article</h2>
+                                <a href="https://www.ite.org/pub/?id=2B219A8E-A7A9-D2CC-F135-DD7475DAE094">"Bring Back
+                                    the Sewer
+                                    Socialists!"</a>
+                                <p>Jordan Fraade<br>
+                                    <em>Slate Magazine</em>, 2021
+                                </p>
+                                <p>Taking care of garbage in a city shouldn’t be a political issue. Neither should
+                                    transport.</p>
+                            </section>
+                            <section class="article-in">
+                                <h2>Article</h2>
+                                <a href="https://www.ite.org/pub/?id=2B219A8E-A7A9-D2CC-F135-DD7475DAE094">"Bring Back
+                                    the Sewer
+                                    Socialists!"</a>
+                                <p>Jordan Fraade<br>
+                                    <em>Slate Magazine</em>, 2021
+                                </p>
+                                <p>Taking care of garbage in a city shouldn’t be a political issue. Neither should
+                                    transport.</p>
+                            </section>
+                            <section class="article-in">
+                                <h2>Article</h2>
+                                <a href="https://www.ite.org/pub/?id=2B219A8E-A7A9-D2CC-F135-DD7475DAE094">"Bring Back
+                                    the Sewer
+                                    Socialists!"</a>
+                                <p>Jordan Fraade<br>
+                                    <em>Slate Magazine</em>, 2021
+                                </p>
+                                <p>Taking care of garbage in a city shouldn’t be a political issue. Neither should
+                                    transport.</p>
+                            </section>
+                            <section class="article-in">
+                                <h2>Article</h2>
+                                <a href="https://www.ite.org/pub/?id=2B219A8E-A7A9-D2CC-F135-DD7475DAE094">"Bring Back
+                                    the Sewer
+                                    Socialists!"</a>
+                                <p>Jordan Fraade<br>
+                                    <em>Slate Magazine</em>, 2021
+                                </p>
+                                <p>Taking care of garbage in a city shouldn’t be a political issue. Neither should
+                                    transport.</p>
+                            </section>
+                            <section class="article-in">
+                                <h2>Article</h2>
+                                <a href="https://www.ite.org/pub/?id=2B219A8E-A7A9-D2CC-F135-DD7475DAE094">"Bring Back
+                                    the Sewer
+                                    Socialists!"</a>
+                                <p>Jordan Fraade<br>
+                                    <em>Slate Magazine</em>, 2021
+                                </p>
+                                <p>Taking care of garbage in a city shouldn’t be a political issue. Neither should
+                                    transport.</p>
+                            </section>
+                        </div>
+                    </section>
+                    <section id="tab3" class="tab-slider--body" [class.active]="viewMode == 'tab3'"
+                        *ngSwitchCase="'tab3'">
+                        <div class="tab-na">
+                            <p>Relevant notes and citations provided to TED by Kevin J. Krizek</p>
+                            <a href="https://www.ted.com/speakers/kevin_j_krizek">
+                                <div class="author_in"></div>
+                            </a>
+                        </div>
+                        <div class="tab-pa">
+                            <section class="article-in">
+                                <div>“Now, one third of all the land in cities is set up for cars.”</div>
+                                <br>In some U.S. cities, <a href="https://par.nsf.gov/servlets/purl/10200589">like
+                                    Phoenix,
+                                    Arizona</a>, parking lots take up <a
+                                    href="https://www.nytimes.com/2012/01/08/arts/design/taking-parking-lots-seriously-as-public-spaces.html">one-third
+                                    of all land area</a>.
+                            </section>
+                            <section class="article-in">
+                                <div>“Now, one third of all the land in cities is set up for cars.”</div>
+                                <br>In some U.S. cities, <a href="https://par.nsf.gov/servlets/purl/10200589">like
+                                    Phoenix,
+                                    Arizona</a>, parking lots take up <a
+                                    href="https://www.nytimes.com/2012/01/08/arts/design/taking-parking-lots-seriously-as-public-spaces.html">one-third
+                                    of all land area</a>.
+                            </section>
+                            <section class="article-in">
+                                <div>“Now, one third of all the land in cities is set up for cars.”</div>
+                                <br>In some U.S. cities, <a href="https://par.nsf.gov/servlets/purl/10200589">like
+                                    Phoenix,
+                                    Arizona</a>, parking lots take up <a
+                                    href="https://www.nytimes.com/2012/01/08/arts/design/taking-parking-lots-seriously-as-public-spaces.html">one-third
+                                    of all land area</a>.
+                            </section>
+                            <section class="article-in">
+                                <div>“Now, one third of all the land in cities is set up for cars.”</div>
+                                <br>In some U.S. cities, <a href="https://par.nsf.gov/servlets/purl/10200589">like
+                                    Phoenix,
+                                    Arizona</a>, parking lots take up <a
+                                    href="https://www.nytimes.com/2012/01/08/arts/design/taking-parking-lots-seriously-as-public-spaces.html">one-third
+                                    of all land area</a>.
+                            </section>
+                        </div>
+                    </section>
+                </article>
+            </main>
+        </div>
+    </div>
 </div>

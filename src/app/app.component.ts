@@ -53,8 +53,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
             ll.length - 1,
             this.newsService.paths.value.length - 1
           );
-          this.isChildRoutePath =
-            this.newsService.paths.value[l] == ll[l];
+          this.isChildRoutePath = this.newsService.paths.value[l] == ll[l];
           this.isNeighbor =
             l > 0 && this.newsService.paths.value[l - 1] == ll[l - 1];
           this.newsService.setBreadcrumbList(
@@ -74,7 +73,6 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
           }
         }
       });
-     // this.ngAfterViewInit();
   }
   ngOnInit(): void {}
   ngOnDestroy(): void {
@@ -82,7 +80,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     this.destroy.complete();
   }
   ngAfterViewInit(): void {
-      this.renderer.listen(this.winRef.nativeWindow, 'load', () => {
+    this.renderer.listen(this.winRef.nativeWindow, 'load', () => {
       if (!this.reactiveService.statusOfNewsSource()) {
         this.reactiveService.getNewsStream(
           this.reactiveService.random,

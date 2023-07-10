@@ -1,44 +1,44 @@
-:host{
-    display: grid;
-    grid-template:
-      "header" auto
-      "content" minmax(100vh, 1fr)
-      "footer" max-content / 1fr;
+:host {
+  display: grid;
+  grid-template:
+    "header" auto
+    "content" minmax(100vh, 1fr)
+    "footer" max-content / 1fr;
+}
+app-header {
+  grid-area: header;
+}
+router-outlet {
+  display: none;
+}
+[content] {
+  grid-area: content;
+}
+router-outlet + * {
+  grid-area: content;
+}
+app-footer {
+  grid-area: footer;
+}
+.loadingspinner {
+  position: fixed;
+  pointer-events: none;
+  bottom: 50%;
+  left: 50%;
+  z-index: 66;
+  width: 2.5em;
+  height: 2.5em;
+  border: 0.4em solid transparent;
+  border-color: rgb(145, 232, 235);
+  border-top-color: #ff0000;
+  border-radius: 50%;
+  animation: loadingspin 1s linear infinite;
+}
+@keyframes loadingspin {
+  100% {
+    transform: rotate(360deg);
   }
-  app-header {
-    grid-area: header;
-  }
-  router-outlet {
-   display: none;
-  }
-  [content] {
-    grid-area: content;
-  }
-  router-outlet + * {
-    grid-area: content;
-  }
-  app-footer {
-    grid-area: footer;
-  }
-  .loadingspinner{
-    position: fixed;
-    pointer-events: none;
-    bottom: 50%;
-    left: 50%;
-    z-index: 66;
-    width: 2.5em;
-    height: 2.5em;
-    border: 0.4em solid transparent;
-    border-color: rgb(145, 232, 235);
-    border-top-color: #ff0000;
-    border-radius: 50%;
-    animation: loadingspin 1s linear infinite;
-  }
-  @keyframes loadingspin {
-    100% {
-        transform: rotate(360deg)
-    }
-  }
-  .blurred {
-    filter: blur(1px) brightness(75%);
-  }
+}
+.blurred {
+  filter: blur(1px) brightness(75%);
+}

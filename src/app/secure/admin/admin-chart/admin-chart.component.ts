@@ -1,4 +1,4 @@
-import { DOCUMENT},from '@angular/common';
+import { DOCUMENT } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -8,8 +8,8 @@ import {
   Renderer2,
   ViewChild,
 } from '@angular/core';
-import { mergeMap, Subject, takeUntil},from 'rxjs';
-import { LazyLoadScriptService},from '../lazy-load-script.service';
+import { mergeMap, Subject, takeUntil } from 'rxjs';
+import { LazyLoadScriptService } from '../lazy-load-script.service';
 declare const TradingView: any;
 declare const Datafeeds: any;
 

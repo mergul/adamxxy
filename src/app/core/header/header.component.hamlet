@@ -1,0 +1,56 @@
+$doctype 5
+<header>
+    <a .logo routerLink="/home">
+        <div>
+            <h1 .logos>
+                Adam
+    <input .nav-toggle #nav-toggle type="checkbox">
+    <label .nav-toggle-label for="nav-toggle">
+        <span>
+    <nav>
+        <ul>
+            <li>
+                <a routerLink="/home">
+                    Home
+            <li>
+                <a routerLink="/secure/upload">
+                    About
+            <li .nav-item .nav-item-dropdown>
+                <a .dropdown-trigger routerLink="/home">
+                    Blog
+                <ul .dropdown-menu>
+                    <li .dropdown-menu-item>
+                        <a routerLink="/home">
+                            blog entry
+                    <li .dropdown-menu-item>
+                        <a routerLink="/home">
+                            blog entry
+                    <li .dropdown-menu-item>
+                        <a routerLink="/home">
+                            blog entry
+            <li>
+                <a routerLink="secure/admin">
+                    Admin
+            <li .divider>
+                <div .search-box>
+                    <img alt="Search" .simg height="27px" src="assets/search.png" width="26px">
+                    <input placeholder="Search" type="text">
+            <li .nav-item-dropdown .navuser>
+                <ng-container *ngIf="(userService.authChangeEmitter|push)||{isIn: name!=='', name: name} as auth">
+                    <ng-container [ngSwitch]="auth.isIn">
+                        <a *ngSwitchCase="false" #gir routerLink="secure/sign">
+                            Giriş Yap
+                        <figure *ngSwitchCase="true" .user .online .dropdown-trigger>
+                            <img alt="user" .online-user height="50px" src="assets/profile-img.jpeg" width="50px">
+                            <figcaption>
+                                {{auth.name}}
+                        <ul *ngSwitchCase="true" .dropdown-menu>
+                            <li .dropdown-menu-item>
+                                <a [routerLink]="['secure/user']">
+                                    Hesabım
+                            <li .dropdown-menu-item>
+                                <a routerLink="secure/user/user-edit">
+                                    Güncelle
+                            <li .dropdown-menu-item>
+                                <button (click)="signOut()">
+                                    Çıkış

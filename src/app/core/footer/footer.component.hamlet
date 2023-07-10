@@ -1,0 +1,89 @@
+$doctype 5
+<footer .footer-area>
+    <article .footer>
+        <section .single-footer>
+            <h2>
+                about us
+            <p>
+                Lorem ipsum dolor sit amet, di dunt ut labore et dolore magna aliqua. Ut enim ad minim veniam. Excepteur
+                        sint qui officia deserunt Excepteur.
+            <div .footer-social>
+                <a href="https://facebook.com/">
+                    <i .fab .fa-facebook-f>
+                    <span>
+                        Facebook
+                <a href="https://twitter.com/">
+                    <i .fab .fa-twitter>
+                    <span>
+                        Twitter
+                <a href="https://instagram.com">
+                    <i .fab .fa-instagram>
+                    <span>
+                        Instagram
+                <a href="https://linkedin.com/">
+                    <i .fab .fa-linkedin-in>
+                    <span>
+                        LinkedIn
+        <section .single-footer>
+            <h2>
+                main menu
+            <ul>
+                <li>
+                    <a href="home">
+                        <i .fas .fa-chevron-right>
+                        home
+                <li>
+                    <a href="home">
+                        <i .fas .fa-chevron-right>
+                        about us
+                <li>
+                    <a href="home">
+                        <i .fas .fa-chevron-right>
+                        services
+                <li>
+                    <a href="home">
+                        <i .fas .fa-chevron-right>
+                        gallery
+                <li>
+                    <a href="home">
+                        <i .fas .fa-chevron-right>
+                        contact us
+        <section .single-footer>
+            <h2>
+                quick links
+            <ul>
+                <li>
+                    <a href="home">
+                        <i .fas .fa-chevron-right>
+                        privacy policy
+                <li>
+                    <a href="home">
+                        <i .fas .fa-chevron-right>
+                        terms & conditions
+                <li>
+                    <a href="home">
+                        <i .fas .fa-chevron-right>
+                        disclaimer
+        <section .single-footer>
+            <h2>
+                contact us
+            <ul>
+                <li>
+                    <a href="home">
+                        <i .fas .fa-map-marker-alt>
+                        Tepe Üstü, Ümraniye, İstanbul
+                <li>
+                    <a href="home">
+                        <i .fas .fa-mobile-alt>
+                        +90 123 456 789
+                <li>
+                    <a href="home">
+                        <i .far .fa-envelope>
+                        info@demo.com
+                <li>
+                    <a href="home">
+                        <i .fas .fa-globe-europe>
+                        www.demo.com
+    <div .copy>
+        <p>
+            © 2020 all rights reserved
