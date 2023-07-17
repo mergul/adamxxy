@@ -22,7 +22,8 @@
     "lib": ["es2020", "dom"],
     "paths": {
       "@secure/*": ["app/secure/*"],
-      "@core/*": ["app/core/*"]
+      "@core/*": ["app/core/*"],
+      "event": ["node_modules/event-source-polyfill/src/eventsource.min.js"]
     }
   },
   "angularCompilerOptions": {
