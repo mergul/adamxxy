@@ -1,3 +1,55 @@
+import { coalesceWith } from './coalesceWith2';
+import {
+  ChangeDetectorRef,
+  OnDestroy,
+  Pipe,
+  ɵisObservable,
+  ɵisPromise,
+} from '@angular/core';
+import {
+  animationFrames,
+  Observable,
+  Subject,
+  distinctUntilChanged,
+  switchAll,
+  from,
+  tap,
+  throwError,
+} from 'rxjs';
+
+@Pipe({ name: 'push', pure: false })
+export class PushPipe implements OnDestroy {
+  requestAnimationFrameId = -1;
+  value: any = null;
+  subscription;
+  observablesToSubscribeSubject = new Subject<Observable<any>>();
+  obs$ = this.observablesToSubscribeSubject.pipe(
+    distinctUntilChanged(Object.is),
+    switchAll(),
+    coalesceWith(animationFrames(), { numCoalescingSubscribers: 0 }),
+    tap((v) => {
+      this.value = v;
+      this.ref.detectChanges();
+    })
+  );
+  constructor(private ref: ChangeDetectorRef) {
+    this.subscription = this.obs$.subscribe();
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
+  transform(obj: Observable<any> | Promise<any> | null | undefined): any {
+    this.observablesToSubscribeSubject.next(toObservable(obj));
+    return this.value;
+    function toObservable(obj: any) {
+      if (ɵisObservable(obj) || ɵisPromise(obj)) return from(obj);
+      else return throwError(new Error('invalidPipeArgumentError'));
+    }
+  }
+}
+
 // import {
 //   ChangeDetectorRef,
 //   EventEmitter,
@@ -81,56 +133,3 @@
 //     }
 //   }
 // }
-import {coalesceWith} from './coalesceWith2';
-import {
-  ChangeDetectorRef,
-  OnDestroy,
-  Pipe,
-  ɵisObservable,
-  ɵisPromise,
-} from '@angular/core';
-import {
-  animationFrames,
-  Observable,
-  Subject,
-  distinctUntilChanged,
-  switchAll,
-  from,
-  tap,
-  throwError,
-} from 'rxjs';
-
-@Pipe({ name: 'push', pure: false })
-export class PushPipe implements OnDestroy {
-  requestAnimationFrameId = -1;
-  value: any = null;
-  subscription;
-  observablesToSubscribeSubject = new Subject<Observable<any>>();
-  obs$ = this.observablesToSubscribeSubject.pipe(
-    distinctUntilChanged(Object.is),
-    switchAll(),
-    coalesceWith(animationFrames(), {numCoalescingSubscribers: 0}),
-    tap((v) => {
-      this.value = v;
-      this.ref.detectChanges();
-    })
-  );
-constructor(private ref: ChangeDetectorRef) {
-  this.subscription = this.obs$.subscribe();
-}
-
-ngOnDestroy(): void {
-  this.subscription.unsubscribe();
-}
-
-transform(obj: Observable<any> | Promise<any> | null | undefined): any {
-  this.observablesToSubscribeSubject.next(toObservable(obj));
-  return this.value;
-  function toObservable(obj:any) {
-    if (ɵisObservable(obj) || ɵisPromise(obj))
-      return from(obj);
-     else
-       return throwError(new Error('invalidPipeArgumentError'));
-     }
-  }
-}
