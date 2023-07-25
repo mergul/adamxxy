@@ -91,7 +91,6 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
             takeUntil(this.destroy),
             map((user) => {
               if (user) {
-                this.reactiveService.setListeners('@' + this.loggedUserId);
                 this.userService.newsCo.set(
                   this.userService.links[1],
                   user.tags.map((value) => {

@@ -87,6 +87,10 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
           this.newslistUrl
         );
       }
+      const loggedUserId = localStorage.getItem('id');
+      if (!!loggedUserId) {
+        this.reactiveService.setListeners('@' + loggedUserId);
+      }
       if (!this.newsService.newsStreamList$) {
         this.newsService.newsStreamList$ = this.reactiveService.getMessage(
           this.newsService.links[0]
