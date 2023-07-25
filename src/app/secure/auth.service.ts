@@ -1,8 +1,22 @@
-import { ApplicationRef, Injectable, OnDestroy, OnInit, Optional } from '@angular/core';
+import {
+  ApplicationRef,
+  Injectable,
+  OnDestroy,
+  OnInit,
+  Optional,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { traceUntilFirst } from '@angular/fire/performance';
 import { Auth, authState, User } from '@angular/fire/auth';
-import { EMPTY, forkJoin, from, Observable, of, ReplaySubject, Subject } from 'rxjs';
+import {
+  EMPTY,
+  forkJoin,
+  from,
+  Observable,
+  of,
+  ReplaySubject,
+  Subject,
+} from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { UserService } from '@core/user.service';
 import { ReactiveStreamsService } from '@core/reactive-streams.service';
@@ -26,68 +40,79 @@ export class AuthService implements OnInit, OnDestroy {
   ) {
     // this.afAuth.useEmulator("http://localhost:9099");
     this.isMobile = window.innerWidth < 600;
-    if (auth) {
-      this.user = authState(this.auth);
-      authState(this.auth)
-        .pipe(
-          traceUntilFirst('auth'),
-          switchMap((user) => {
-            if (user) {
-              this.userService.authChangeEmitter.next({
-                isIn: true,
-                name: user.displayName!,
-              });
-              localStorage.setItem(
-                'username',
-                JSON.stringify(user.displayName)
-              );
-              const id = this.userService.createId(user.uid);
-              this.reactiveService.setListeners('@' + id);
-              const url =
-                this._baseUrl + id + '/' + this.reactiveService.random + '/0';
-              if (this.userService._meUrlStore.getValue() !== url) {
-                this.userService._meUrlStore.next(url);
+    const myUser = userService._meStore.getValue();
+    if (myUser === null) {
+      console.log('into the auth service auth object');
+      if (auth) {
+        this.user = authState(this.auth);
+        authState(this.auth)
+          .pipe(
+            traceUntilFirst('auth'),
+            switchMap((user) => {
+              if (user) {
+                this.userService.authChangeEmitter.next({
+                  isIn: true,
+                  name: user.displayName!,
+                });
+                localStorage.setItem(
+                  'username',
+                  JSON.stringify(user.displayName)
+                );
+                const id = this.userService.createId(user.uid);
+                this.reactiveService.setListeners('@' + id);
+                const url =
+                  this._baseUrl + id + '/' + this.reactiveService.random + '/0';
+                if (this.userService._meUrlStore.getValue() !== url) {
+                  this.userService._meUrlStore.next(url);
+                  localStorage.setItem('id', id);
+                }
+                return forkJoin({ id: of(id), token: from(user.getIdToken()) });
+              } else {
+                this.userService.authChangeEmitter.next({
+                  isIn: false,
+                  name: '',
+                });
+                localStorage.setItem('username', '');
+                localStorage.setItem('id', '');
+                return forkJoin({ id: of(''), token: of('') });
               }
-              return forkJoin({ id: of(id), token: from(user.getIdToken()) });
-            } else {
-              this.userService.authChangeEmitter.next({
-                isIn: false,
-                name: '',
-              });
-              localStorage.setItem('username', '');
-              return forkJoin({ id: of(''), token: of('') });
+            }),
+            switchMap(({ id, token }) => {
+              if (id) {
+                localStorage.setItem('token', token);
+                return this.userService._meBackend.pipe();
+                // return this.userService.getDbUser('/api/rest/user/' + id + '/' + this.reactiveService.random+ '/0');
+              } else {
+                return of(null);
+              }
+            }), //, shareReplay(1)
+            takeUntil(this.destroy)
+          )
+          .subscribe((user) => {
+            if (user) {
+              this.userService.newsCo.set(
+                this.userService.links[1],
+                user.tags.map((value) => {
+                  this.reactiveService.setUserListListeners('#' + value);
+                  return '#' + value;
+                })
+              );
+              this.userService.newsCo.set(
+                this.userService.links[2],
+                user.users.map((value) => {
+                  this.reactiveService.setUserListListeners('@' + value);
+                  return '@' + value;
+                })
+              );
             }
-          }),
-          switchMap(({ id, token }) => {
-            if (id) {
-              localStorage.setItem('token', token);
-              return this.userService._meBackend.pipe();
-              // return this.userService.getDbUser('/api/rest/user/' + id + '/' + this.reactiveService.random+ '/0');
-            } else {
-              return of(null);
-            }
-          }), //, shareReplay(1)
-          takeUntil(this.destroy)
-        )
-        .subscribe((user) => {
-          if (user) {
-            this.userService.newsCo.set(
-              this.userService.links[1],
-              user.tags.map((value) => {
-                this.reactiveService.setUserListListeners('#' + value);
-                return '#' + value;
-              })
-            );
-            this.userService.newsCo.set(
-              this.userService.links[2],
-              user.users.map((value) => {
-                this.reactiveService.setUserListListeners('@' + value);
-                return '@' + value;
-              })
-            );
-          }
-          this.userService._meStore.next(user);
-        });
+            this.userService._meStore.next(user);
+          });
+      }
+    } else {
+      this.userService.authChangeEmitter.next({
+        isIn: true,
+        name: myUser.firstname!,
+      });
     }
     this.userService.logoutEmitter
       .pipe(takeUntil(this.destroy))
@@ -145,7 +170,7 @@ export class AuthService implements OnInit, OnDestroy {
           })
           .then(() => {
             setTimeout(() => {
-            this.router.navigate(['secure/user']);              
+              this.router.navigate(['secure/user']);
             }, 0);
           });
       })
@@ -154,7 +179,7 @@ export class AuthService implements OnInit, OnDestroy {
       });
   }
   // Sign in with email/password
-  async signIn(email: string, password: string): Promise<void| Error> {
+  async signIn(email: string, password: string): Promise<void | Error> {
     const asd = await import('./FirebaseActions');
     return await asd
       .signInWithEmailAndPassword(this.auth, email, password)
@@ -170,6 +195,7 @@ export class AuthService implements OnInit, OnDestroy {
     localStorage.removeItem('is');
     localStorage.removeItem('username');
     localStorage.removeItem('returnUrl');
+    localStorage.removeItem('id');
     const user = this.userService._meStore.getValue();
     if (user) {
       this.reactiveService.resetNavListListeners('@' + user.id);

@@ -131,6 +131,7 @@ export class NewsService {
       thumb: news.mediaReviews[0].file_name,
       count: +news.count,
       date: news.date,
+      offers: news.offers,
     };
   }
   getNewsByOwnerId(id: string): Observable<Array<News>> {
@@ -153,6 +154,7 @@ export class NewsService {
       summary: '',
       tags: [],
       topic: '',
+      offers: [],
     };
   }
   get activeLink(): string {

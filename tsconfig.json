@@ -23,7 +23,7 @@
     "paths": {
       "@secure/*": ["app/secure/*"],
       "@core/*": ["app/core/*"],
-      "event": ["node_modules/event-source-polyfill/src/eventsource.min.js"]
+      "event": ["../node_modules/event-source-polyfill/src/eventsource.min.js"]
     }
   },
   "angularCompilerOptions": {

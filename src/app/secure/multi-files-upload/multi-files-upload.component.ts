@@ -11,7 +11,13 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
 } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormArray,
+  FormControl,
+  Validators,
+} from '@angular/forms';
 
 import { Observable, Subject, from, Subscription, BehaviorSubject } from 'rxjs';
 import { NewsFeed, Review } from '@core/news.model';
@@ -28,7 +34,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./multi-files-upload.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MultiFilesUploadComponent implements OnInit, AfterViewInit, OnDestroy
+export class MultiFilesUploadComponent
+  implements OnInit, AfterViewInit, OnDestroy
 {
   private readonly onDestroy = new Subject<void>();
   subs!: Subscription;
@@ -99,7 +106,7 @@ export class MultiFilesUploadComponent implements OnInit, AfterViewInit, OnDestr
       .subscribe((status) => this.logStatusValidity.next(status === 'VALID'));
     setTimeout(() => {
       this.ngOnInit();
-     // this.ngAfterViewInit();
+      // this.ngAfterViewInit();
       this.cd.detectChanges();
     });
   }
@@ -541,7 +548,8 @@ export class MultiFilesUploadComponent implements OnInit, AfterViewInit, OnDestr
         'medium-bae.jpeg'
       );
     }
-    this._purl = formValue.news_topic.match(/#[a-zığüşöçĞÜŞÖÇİ0-9_.]+/gi);
+    if (formValue.news_topic)
+      this._purl = formValue.news_topic.match(/#[a-zığüşöçĞÜŞÖÇİ0-9_.]+/gi);
     this.newsFeed = new NewsFeed(
       this.text2HTML(formValue.news_description)!,
       formValue.news_topic,

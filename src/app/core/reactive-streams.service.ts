@@ -90,9 +90,7 @@ export class ReactiveStreamsService {
       'top-tags',
       (event: MessageEvent) => {
         const topTags = JSON.parse(event.data);
-        // this.zone.run(() =>
         this.tagsBehaviorSubject.next(topTags.list);
-        // );
       }
     );
     this.renderer.listen(
