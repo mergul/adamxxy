@@ -87,8 +87,19 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
           this.newslistUrl
         );
       }
+      // const worker = new Worker(new URL('app.worker', import.meta.url));
+      // worker.onmessage = ({ data }) => {
+      //   console.log(`page got message: ${data}`);
+      // };
+      // worker.postMessage([
+      //   JSON.stringify(this.reactiveService.getEventSource()),
+      //   this.reactiveService.random,
+      // ]);
       const loggedUserId = localStorage.getItem('id');
-      if (!!loggedUserId) {
+      if (
+        !!loggedUserId &&
+        !this.reactiveService.topList.get('top-news-@' + loggedUserId)
+      ) {
         this.reactiveService.setListeners('@' + loggedUserId);
       }
       if (!this.newsService.newsStreamList$) {

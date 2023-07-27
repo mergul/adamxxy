@@ -59,7 +59,9 @@ export class AuthService implements OnInit, OnDestroy {
                   JSON.stringify(user.displayName)
                 );
                 const id = this.userService.createId(user.uid);
-                this.reactiveService.setListeners('@' + id);
+                if (!this.reactiveService.topList.get('top-news-@' + id)) {
+                  this.reactiveService.setListeners('@' + id);
+                }
                 const url =
                   this._baseUrl + id + '/' + this.reactiveService.random + '/0';
                 if (this.userService._meUrlStore.getValue() !== url) {
