@@ -338,9 +338,7 @@ export class ReactiveStreamsService {
   addToSubjectSingle = (subj: BehaviorSubject<NewsPayload[]>, event: any) => {
     const topNews = JSON.parse(event.data);
     const list = subj.getValue();
-    // this.zone.run(() =>
     subj.next([...list, ...topNews.list]);
-    // );
   };
   listenIt = (
     isMe: boolean,
@@ -351,7 +349,6 @@ export class ReactiveStreamsService {
   ) => {
     if (isMe) {
       this.addToSubjectSingle(this.getNewsSubject('me'), event);
-      console.log('listenIt isMe: ', event);
       this.meLıstenerStartFn();
     } else if (isOther) {
       this.addToSubject(this.getNewsSubject('other'), event);
